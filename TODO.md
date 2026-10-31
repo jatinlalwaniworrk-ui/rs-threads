@@ -142,7 +142,7 @@ Most values live in `src/data/site.json` (see README.md). Fix them, then run `np
 Put compressed WebP photos in `public/images/` and replace the placeholder blocks. Never use stock photos of thread.
 
 - `/`: Photo: Rose cones on a rack, or a machine running Rose thread
-- `/products`: Photo: Rose Embroidery Nylon box; Photo: Jai Plus Embroidery Nylon box; Photo: RS Embroidery Nylon box; Photo: Rose Smart Silk box; Photo: Rose SS 4000 box; Photo: Rose SS 6000 box; Photo: RS Viscose box; Photo: Rose Viscose box; Photo: Rose Zari box; Photo: Bobbin Thread (Underthread) box; Photo: Rose Metallic Yarn (Badla) box
+- `/products`: Photo: Rose Smart Silk box; Photo: Rose SS 4000 box; Photo: Rose SS 6000 box; Photo: RS Viscose box; Photo: Rose Viscose box; Photo: Rose Embroidery Nylon box; Photo: Jai Plus Embroidery Nylon box; Photo: RS Embroidery Nylon box; Photo: Rose Zari box; Photo: Bobbin Thread (Underthread) box; Photo: Rose Metallic Yarn (Badla) box
 - `/products/bobbin-thread`: Photo: Bobbin Thread (Underthread) packing; Photo: Bobbin Thread (Underthread) shade spread; Photo: embroidery close-up with Bobbin Thread (Underthread)
 - `/products/jai-plus-embroidery-nylon`: Photo: Jai Plus Embroidery Nylon packing; Photo: Jai Plus Embroidery Nylon shade spread; Photo: embroidery close-up with Jai Plus Embroidery Nylon
 - `/products/rose-embroidery-nylon`: Photo: Rose Embroidery Nylon packing; Photo: Rose Embroidery Nylon shade spread; Photo: embroidery close-up with Rose Embroidery Nylon

@@ -78,9 +78,9 @@
     "embroidery-thread": "Embroidery thread"
   },
   "fibres": {
-    "nylon": "Nylon",
     "polyester": "Polyester",
     "viscose": "Viscose",
+    "nylon": "Nylon",
     "zari": "Zari",
     "metallic": "Metallic"
   },
