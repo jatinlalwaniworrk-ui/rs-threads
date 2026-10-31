@@ -45,4 +45,3 @@ export const siteVars = {
 };
 
 export const productBySlug = (slug: string) => products.find((p) => p.slug === slug);
-export const shadesFor = (slug: string) => shades.filter((s) => s.products.includes(slug));

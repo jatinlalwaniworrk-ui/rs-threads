@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 import Text from '../components/Text.astro';
 import WhatsAppLink from '../components/WhatsAppLink.astro';
-import { products, shadesFor, site, type Product } from '../lib/site';
+import { products, site, type Product } from '../lib/site';
 import { clean, fill, isSet } from '../lib/todo';
 import { localePath, useStrings, type Lang } from '../i18n';
 import { withBase } from '../lib/paths';
@@ -21,7 +21,6 @@ const lp = (path: string) => localePath(lang, path);
 
 const fibre = isSet(p.fibre) ? t.fibres[p.fibre as keyof typeof t.fibres] ?? p.fibre : p.fibre;
 const group = t.groups[p.group as keyof typeof t.groups];
-const shadeCount = shadesFor(p.slug).length;
 const vars = { product: p.name, group: group.toLowerCase() };
 
 const putUp = p.length && isSet(p.length) ? `${p.length} ${p.putUp.toLowerCase()}` : p.putUp.toLowerCase();
@@ -90,16 +89,6 @@ const productLd = {
 
       <dl class="details">
         {specs.map(([label, value]) => <div><dt>{label}</dt><dd><Text t={value} /></dd></div>)}
-        {p.shades !== false && (
-          <div>
-            <dt>{h.shades}</dt>
-            <dd>
-              {typeof p.shades === 'string' ? <Text t={p.shades} /> : (
-                <a href={lp(`/shade-card?product=${p.slug}`)}>{shadeCount ? fill(h.shadesLink, { count: shadeCount }) : h.shadesLinkNone}</a>
-              )}
-            </dd>
-          </div>
-        )}
       </dl>
 
       {order.length > 0 && (

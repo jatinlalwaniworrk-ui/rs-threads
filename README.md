@@ -87,7 +87,6 @@ A row shows on the product page only if its field is in the block. Leave a field
 | `length` | `"4,000 m"` | Length |
 | `weight` | `"10 g per spool"` | Weight |
 | `fibreLabel` | `"thread"` | Calls the fibre row "Thread" instead of "Yarn" |
-| `shades` | `"600 shades available in stock"` | Shades available, as this text instead of the shade card link. `false` hides the row. |
 | `moq` | `"80 packets"` | Minimum order (MOQ), under Order details |
 | `availability` | `"In different shades, on order"` | Availability, under Order details |
 | `technical` | `false` | Hides the Technical details section |
