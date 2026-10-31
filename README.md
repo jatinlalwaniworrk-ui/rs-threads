@@ -2,7 +2,9 @@
 
 The B2B website for Mirchumal Panjumal (Rose, RS and Jai Plus embroidery thread).
 
-Every change you push to the `main` branch on GitHub goes live on Netlify by itself in about a minute.
+Live (for now on GitHub Pages): https://jatinlalwaniworrk-ui.github.io/rs-threads
+
+Every change you push to the `main` branch on GitHub goes live by itself in about two minutes.
 
 Anything still missing shows on the site as a yellow `[TODO]`. `TODO.md` lists them all, page by page.
 
@@ -38,7 +40,7 @@ Open `src/data/site.json` and replace the `[TODO...]` text with the real value. 
 - **Udyam:** to remove the row completely, set `"udyam": ""`.
 - **Trademarks:** set `"trademark": "registered"` only for a brand where you hold the registration certificate for that exact mark. It then shows ®. Anything else shows ™.
 - **IndiaMART badge:** set `"indiamartBadge": "TrustSEAL"` (or similar) only if you hold it. Set it to `""` to hide the row.
-- **Domain:** set `"domain": "yourdomain.in"` (no https://). Then add the same domain in Netlify (Domain management).
+- **Domain:** set `"domain": "yourdomain.in"` (no https://). Then add the same domain where the site is hosted (Netlify: Domain management. GitHub Pages: Settings, Pages, Custom domain). Until it is set, search engines are asked not to list the site, so the temporary address never competes with the real one.
 - **Google Search Console:** paste only the code from the verification tag into `analytics.searchConsole`.
 - **Google Analytics:** paste the ID (`G-XXXXXXX`) into `analytics.ga4`. It loads only after a visitor taps "Accept".
 
@@ -140,8 +142,10 @@ Never use stock photos of thread.
 
 Each form submission goes to two places (see `src/lib/leads.ts`):
 
-1. **Netlify Forms.** In Netlify: Forms. If it asks, click "Enable form detection", then redeploy once. Turn on email notifications for the `enquiry` and `dealer` forms (Forms, Form notifications, Add notification, Email).
+1. **Netlify Forms** (only once the site is on Netlify). In Netlify: Forms. If it asks, click "Enable form detection", then redeploy once. Turn on email notifications for the `enquiry` and `dealer` forms (Forms, Form notifications, Add notification, Email).
 2. **Google Sheet.** Follow the steps at the top of `scripts/google-apps-script.gs`, then put the web app URL in `leads.appsScriptUrl` in `site.json`.
+
+While neither is set up (GitHub Pages, no Google Sheet yet), the dealer form skips saving and asks the dealer to send their details on WhatsApp instead. Enquiries always go out on WhatsApp.
 
 To add a CRM later (Zoho, Interakt, AiSensy or similar), add one more sender in `src/lib/leads.ts`. Nothing else needs to change.
 
@@ -168,9 +172,17 @@ The "हिंदी" link in the header then points to the Hindi version of the
 
 ## Redeploy
 
-Every push to `main` deploys automatically. To redeploy without a change: Netlify, Deploys, Trigger deploy.
+Every push to `main` deploys automatically (`.github/workflows/deploy.yml`). To redeploy without a change: on GitHub, Actions, "Deploy to GitHub Pages", Run workflow.
 
-First-time setup in Netlify: Add new site, Import from Git, GitHub, choose `rs-threads`. Netlify reads the build settings from `netlify.toml`.
+## Move to Netlify
+
+GitHub Pages is free and fine for sharing. Netlify adds email alerts for every form lead and the security headers in `netlify.toml`, and lets the repo stay private.
+
+1. Netlify: Add new site, Import from Git, GitHub, choose `rs-threads`. It reads the build settings from `netlify.toml`.
+2. Set up form notifications (see Form leads above).
+3. On GitHub: delete `.github/workflows/deploy.yml`, then Settings, Pages, and unpublish the site.
+
+Links and forms adjust themselves. Nothing else changes.
 
 ## Work on it locally
 

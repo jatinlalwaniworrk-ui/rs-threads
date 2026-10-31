@@ -7,8 +7,8 @@ Most values live in `src/data/site.json` (see README.md). Fix them, then run `np
 
 - **WhatsApp number** (`whatsapp` in site.json). Until it is set, every WhatsApp button and the enquiry list go to the 404 page.
 - **GSTIN, address, phone and business hours.** Shown in the footer of every page and checked by buyers before they call.
-- **Domain** (`domain` in site.json). Until it is set, the sitemap and share links use the Netlify address.
-- **Netlify form notifications.** In Netlify: Forms, then turn on email notifications for the `enquiry` and `dealer` forms.
+- **Domain** (`domain` in site.json). Until it is set, share links use the temporary address and search engines are asked not to list the site.
+- **Lead alerts.** The site is on GitHub Pages, so form leads are only saved once the Google Sheet below is set up. For an email per lead, move to Netlify (see README.md).
 - **Google Sheet.** Deploy `scripts/google-apps-script.gs` as a web app (steps in README.md) and put its URL in `leads.appsScriptUrl`.
 - **Legal review** of Privacy policy, Terms of use and Terms of trade, then remove the "Draft" note (see README.md).
 
@@ -66,7 +66,6 @@ Most values live in `src/data/site.json` (see README.md). Fix them, then run `np
 - Shade range: `[TODO: number of shades we offer]`
 - Dealer support: `[TODO: what support dealers get]`
 - Dealer terms: `[TODO: dealer terms, e.g. minimum order, margins, credit, territory]`
-- Application received. We'll call you within `[TODO: 2 working days]`
 
 ## Genuine Rose products (`/genuine`)
 
