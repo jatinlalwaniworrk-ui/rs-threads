@@ -5,7 +5,7 @@ import { marked } from 'marked';
 import Base from '../layouts/Base.astro';
 import { site, fullAddress, siteVars, withMark } from '../lib/site';
 import { fill, highlightTodosInHtml } from '../lib/todo';
-import { useStrings, type Lang } from '../i18n';
+import { localePath, useStrings, type Lang } from '../i18n';
 
 type Page = 'privacy' | 'termsOfUse' | 'termsOfTrade';
 
@@ -33,9 +33,11 @@ const vars = {
   payment: fill(t.payment.text, siteVars),
 };
 // Links inside the markdown point at English paths; send them to the same language.
-const prefix = lang === 'en' ? '' : `/${lang}`;
 const html = highlightTodosInHtml(
-  (marked.parse(fill(source, vars), { async: false }) as string).replace(/href="\/(?!\/)/g, `href="${prefix}/`),
+  (marked.parse(fill(source, vars), { async: false }) as string).replace(
+    /href="(\/(?!\/)[^"]*)"/g,
+    (_, path) => `href="${localePath(lang, path)}"`,
+  ),
 );
 ---
 <Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>

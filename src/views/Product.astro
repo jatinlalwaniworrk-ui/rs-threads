@@ -7,6 +7,7 @@ import WhatsAppLink from '../components/WhatsAppLink.astro';
 import { products, shadesFor, site, type Product } from '../lib/site';
 import { clean, fill, isSet } from '../lib/todo';
 import { localePath, useStrings, type Lang } from '../i18n';
+import { withBase } from '../lib/paths';
 
 interface Props {
   lang: Lang;
@@ -43,7 +44,7 @@ const productLd = {
   name: p.name,
   description: p.description,
   category: group,
-  url: new URL(`/products/${p.slug}`, Astro.site).href,
+  url: new URL(withBase(`/products/${p.slug}`), Astro.site).href,
   manufacturer: { '@type': 'Organization', name: site.legalName },
   ...(isSet(p.brand) && { brand: { '@type': 'Brand', name: p.brand } }),
   ...(isSet(fibre) && { material: fibre }),

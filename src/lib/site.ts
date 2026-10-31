@@ -2,6 +2,7 @@ import site from '../data/site.json';
 import products from '../data/products.json';
 import shades from '../data/shades.json';
 import { clean, isSet } from './todo';
+import { NOT_FOUND } from './paths';
 
 export { site, products, shades };
 export type Product = (typeof products)[number];
@@ -11,10 +12,10 @@ export const siteName = clean(site.siteName);
 export const year = new Date().getFullYear();
 
 /** A link from site.json, or the 404 page while it is still a TODO. */
-export const linkOr404 = (url: string): string => (isSet(url) ? url : '/404');
+export const linkOr404 = (url: string): string => (isSet(url) ? url : NOT_FOUND);
 
-export const telHref = isSet(site.phone) ? `tel:${site.phone.replace(/[^\d+]/g, '')}` : '/404';
-export const mailHref = isSet(site.email) ? `mailto:${site.email}` : '/404';
+export const telHref = isSet(site.phone) ? `tel:${site.phone.replace(/[^\d+]/g, '')}` : NOT_FOUND;
+export const mailHref = isSet(site.email) ? `mailto:${site.email}` : NOT_FOUND;
 
 export const gstPortalUrl = 'https://services.gst.gov.in/services/searchtp';
 

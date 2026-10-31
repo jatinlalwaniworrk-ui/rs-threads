@@ -9,6 +9,7 @@ import WhatsAppLink from '../components/WhatsAppLink.astro';
 import { site, fullAddress, addressIsSet, linkOr404, telHref, mailHref } from '../lib/site';
 import { clean, isSet } from '../lib/todo';
 import { useStrings, type Lang } from '../i18n';
+import { NOT_FOUND } from '../lib/paths';
 
 interface Props {
   lang: Lang;
@@ -18,7 +19,7 @@ const { lang } = Astro.props;
 const t = useStrings(lang);
 const h = t.pages.contact;
 const mapQuery = encodeURIComponent(`${site.legalName}, ${clean(fullAddress)}`);
-const mapsLink = isSet(site.address.mapsUrl) ? site.address.mapsUrl : addressIsSet ? `https://www.google.com/maps/search/?api=1&query=${mapQuery}` : '/404';
+const mapsLink = isSet(site.address.mapsUrl) ? site.address.mapsUrl : addressIsSet ? `https://www.google.com/maps/search/?api=1&query=${mapQuery}` : NOT_FOUND;
 const reviews = linkOr404(site.links.googleReviews);
 ---
 <Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>

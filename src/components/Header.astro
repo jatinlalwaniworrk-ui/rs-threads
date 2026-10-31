@@ -3,6 +3,7 @@ import Icon from './Icon.astro';
 import LangSwitch from './LangSwitch.astro';
 import WhatsAppLink from './WhatsAppLink.astro';
 import { localePath, type Lang, type Strings } from '../i18n';
+import { withBase } from '../lib/paths';
 
 interface Props {
   t: Strings;
@@ -26,8 +27,8 @@ const current = (href: string) => (path === href || path.startsWith(`${href}/`) 
 <header class="site-header">
   <div class="container site-header__inner">
     <a href={lp('/')} class="site-header__logo" aria-label={t.header.logoAlt}>
-      <img class="logo-mark" src="/logo-mark.webp" width="44" height="44" alt="" />
-      <img class="logo-lockup" src="/logo-horizontal.webp" width="107" height="44" alt="" />
+      <img class="logo-mark" src={withBase('/logo-mark.webp')} width="44" height="44" alt="" />
+      <img class="logo-lockup" src={withBase('/logo-horizontal.webp')} width="107" height="44" alt="" />
     </a>
 
     <nav class="site-nav" aria-label={t.nav.mainNav}>
