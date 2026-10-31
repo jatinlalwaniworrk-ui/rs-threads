@@ -34,7 +34,7 @@ const t = useStrings(lang);
 
 const pathname = Astro.url.pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/';
 const path = stripLang(stripBase(pathname));
-const canonical = new URL(pathname, Astro.site).href;
+const canonical = new URL(localePath(lang, path), Astro.site).href;
 const ogImage = new URL(withBase('/og-image.jpg'), Astro.site).href;
 const fullTitle = clean(isHome ? `${siteName}: ${title}` : `${title} | ${siteName}`);
 const metaDescription = clean(description);

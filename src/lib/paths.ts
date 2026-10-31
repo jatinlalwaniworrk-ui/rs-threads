@@ -4,7 +4,7 @@
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 /** "/about" becomes "/rs-threads/about" on GitHub Pages and stays "/about" on Netlify. */
-export const withBase = (path: string): string => (path === '/' ? base || '/' : `${base}${path}`);
+export const withBase = (path: string): string => `${base}${path}`;
 
 /** The path without the subfolder, e.g. "/rs-threads/about" becomes "/about". */
 export const stripBase = (path: string): string =>
