@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Text from '../components/Text.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { products, shades } from '../lib/site';
+import { fill } from '../lib/todo';
+import { useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.shadeCard;
+
+// Colour families that have shades, each with the first shade's colour as its dot.
+const families = Object.entries(t.families)
+  .map(([key, label]) => ({ key, label, hex: shades.find((s) => s.family === key)?.hex }))
+  .filter((f) => f.hex);
+const hasPlaceholders = shades.some((s) => s.placeholder);
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>
+  <div class="container page-head">
+    <h1>{h.h1}</h1>
+    <p class="lead">{h.intro}</p>
+    <p class="colour-note">{t.colourNote}</p>
+    <div class="btn-row" style="margin-top: 16px">
+      <WhatsAppLink id="shade-card-request" message={h.waCard} class="btn btn--secondary">{h.requestCard}</WhatsAppLink>
+    </div>
+  </div>
+
+  <div class="container section--tight" data-shade-card data-count-one={h.countOne} data-count-many={h.count}>
+    <div class="shade-tools">
+      <div class="field">
+        <label for="shade-search">{h.search}</label>
+        <input type="search" id="shade-search" data-filter-search placeholder={h.searchPlaceholder} autocomplete="off" enterkeyhint="search" />
+      </div>
+      <div class="field">
+        <label for="shade-product">{h.product}</label>
+        <select id="shade-product" data-filter-product>
+          <option value="">{h.allProducts}</option>
+          {products.map((p) => <option value={p.slug}>{p.name}</option>)}
+        </select>
+      </div>
+      <fieldset class="filter-group">
+        <legend>{h.family}</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="family" value="" checked /><span>{h.allFamilies}</span></label>
+          {families.map((f) => (
+            <label class="chip">
+              <input type="radio" name="family" value={f.key} />
+              <span><span class="dot" style={`background:${f.hex}`} aria-hidden="true"></span>{f.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    </div>
+
+    <p class="small">
+      <span aria-live="polite" data-shade-count>{fill(h.count, { count: shades.length })}</span>
+      {hasPlaceholders && <> · <Text t={h.placeholderNote} /></>}
+    </p>
+
+    <ul class="swatches">
+      {shades.map((s) => (
+        <li data-shade={s.number} data-family={s.family} data-products={s.products.join(' ')}>
+          <button
+            type="button"
+            class="swatch"
+            aria-pressed="false"
+            aria-label={[fill(h.swatch, { number: s.number }), s.name].filter(Boolean).join(', ')}
+            data-swatch
+            data-hex={s.hex}
+            style={`--c:${s.hex}`}
+          >
+            <span class="swatch__chip"></span>
+            <span class="swatch__num">{s.number}</span>
+            {s.name && <span class="swatch__name">{s.name}</span>}
+            <span class="swatch__added"><Icon name="check" />{t.client.inListShort}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+    <p data-shade-none hidden>{h.none}</p>
+  </div>
+
+  <div slot="bottom" class="bottom-bar" id="shade-bar" hidden>
+    <div class="bottom-bar__inner">
+      <p data-bar-text></p>
+      <button type="button" class="btn btn--light" data-open-enquiry>{h.viewList}</button>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/shade-card';
+</script>

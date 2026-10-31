@@ -332,6 +332,8 @@
       "city": "City",
       "state": "State or UT",
       "chooseState": "Choose",
+      "statesLabel": "States",
+      "utsLabel": "Union territories",
       "gstin": "GSTIN (optional)",
       "whatsapp": "WhatsApp number",
       "whatsappHint": "10 digits, e.g. 98XXXXXXXX. +91 is fine too.",
@@ -354,7 +356,7 @@
       "submit": "Apply to be a dealer",
       "success": "Application received. We'll call you within {callback}.",
       "alsoWa": "Also send on WhatsApp",
-      "waDealer": "Hi, I'd like to become a Rose dealer. (via website)"
+      "waDealer": "Hi, I'd like to become a Rose dealer. My details:"
     },
     "findDealer": {
       "title": "Find a Rose dealer near you",
