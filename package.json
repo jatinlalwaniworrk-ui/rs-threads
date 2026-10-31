@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "todos": "node scripts/list-todos.mjs"
+    "todos": "astro build && node scripts/list-todos.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.4",
