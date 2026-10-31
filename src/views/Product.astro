@@ -1,0 +1,123 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import Text from '../components/Text.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { products, shadesFor, site, type Product } from '../lib/site';
+import { clean, fill, isSet } from '../lib/todo';
+import { localePath, useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  product: Product;
+}
+
+const { lang, product: p } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.product;
+const lp = (path: string) => localePath(lang, path);
+
+const fibre = isSet(p.fibre) ? t.fibres[p.fibre as keyof typeof t.fibres] ?? p.fibre : p.fibre;
+const group = t.groups[p.group as keyof typeof t.groups];
+const shadeCount = shadesFor(p.slug).length;
+const vars = { product: p.name, group: group.toLowerCase() };
+
+const putUp = isSet(p.length) ? `${p.length} ${p.putUp.toLowerCase()}` : p.putUp.toLowerCase();
+const title = fill(h.titleTemplate, { product: p.name, fibre: isSet(fibre) ? fibre.toLowerCase() : '', putUp });
+const description = fill(h.descriptionTemplate, { description: p.description });
+const related = products.filter((x) => x.group === p.group && x.slug !== p.slug);
+
+const specs = [
+  [h.brand, p.brand],
+  [h.fibre, fibre],
+  [h.putUp, p.putUp],
+  [h.length, p.length],
+  [h.packing, p.packing],
+];
+const tech = [h.denier, h.ply, h.colourfastness, h.speed];
+
+const productLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.name,
+  description: p.description,
+  category: group,
+  url: new URL(`/products/${p.slug}`, Astro.site).href,
+  manufacturer: { '@type': 'Organization', name: site.legalName },
+  ...(isSet(p.brand) && { brand: { '@type': 'Brand', name: p.brand } }),
+  ...(isSet(fibre) && { material: fibre }),
+  additionalProperty: specs
+    .slice(2)
+    .filter(([, value]) => isSet(value))
+    .map(([name, value]) => ({ '@type': 'PropertyValue', name, value: clean(value) })),
+};
+---
+<Base lang={lang} title={title} description={description} waMessage={fill(h.waRate, vars)} jsonLd={[productLd]}>
+  <div class="container page-head">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href={lp('/products')}>{t.nav.products}</a></li>
+        <li><a href={lp(`/products?group=${p.group}`)}>{group}</a></li>
+        <li aria-current="page">{p.name}</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="container product-layout" style="padding-bottom: 48px">
+    <ul class="gallery" aria-label={fill(h.gallery, vars)}>
+      {h.photos.map((label) => <li><PhotoPlaceholder label={fill(label, vars)} /></li>)}
+    </ul>
+
+    <div class="stack">
+      <h1>{p.name}</h1>
+      <p class="lead">{p.description}</p>
+
+      <div class="btn-row">
+        <WhatsAppLink id="product-rate" message={fill(h.waRate, vars)}>{h.rate}</WhatsAppLink>
+        <WhatsAppLink id="product-sample" message={fill(h.waSample, vars)} class="btn btn--secondary">{h.sample}</WhatsAppLink>
+        <button type="button" class="btn btn--secondary" data-add-product={p.slug} data-label={h.add}>
+          <Icon name="list" /><span data-add-label>{h.add}</span>
+        </button>
+      </div>
+
+      <dl class="details">
+        {specs.map(([label, value]) => <div><dt>{label}</dt><dd><Text t={value} /></dd></div>)}
+        <div>
+          <dt>{h.shades}</dt>
+          <dd><a href={lp(`/shade-card?product=${p.slug}`)}>{shadeCount ? fill(h.shadesLink, { count: shadeCount }) : h.shadesLinkNone}</a></dd>
+        </div>
+      </dl>
+
+      <section aria-labelledby="tech">
+        <h2 id="tech" class="h3" style="font-size: 1.125rem">{h.techTitle}</h2>
+        <dl class="details">
+          {tech.map((label) => <div><dt>{label}</dt><dd><Text t={h.techTodo} /></dd></div>)}
+        </dl>
+      </section>
+
+      <p class="colour-note">{t.colourNote}</p>
+    </div>
+  </div>
+
+  {related.length > 0 && (
+    <section class="section section--mist" aria-labelledby="related">
+      <div class="container">
+        <h2 id="related">{fill(h.related, vars)}</h2>
+        <ul class="rows">
+          {related.map((r) => (
+            <li>
+              <a class="row-link" href={lp(`/products/${r.slug}`)}>
+                <span>
+                  <span class="row-link__title">{r.name}</span>
+                  <span class="row-link__meta">{r.putUp} · {clean(r.length) || r.packing}</span>
+                </span>
+                <Icon name="arrow" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+</Base>

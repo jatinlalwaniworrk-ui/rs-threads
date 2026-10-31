@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import Text from '../components/Text.astro';
+import { products } from '../lib/site';
+import { fill } from '../lib/todo';
+import { localePath, useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.products;
+const lp = (p: string) => localePath(lang, p);
+
+const groups = Object.entries(t.groups);
+// Fibres that at least one product has. Products with an unconfirmed fibre show under "All fibres" only.
+const fibres = Object.entries(t.fibres).filter(([key]) => products.some((p) => p.fibre === key));
+const fibreLabel = (key: string) => t.fibres[key as keyof typeof t.fibres] ?? key;
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>
+  <div class="container page-head">
+    <h1>{h.h1}</h1>
+    <p class="lead">{h.intro}</p>
+  </div>
+
+  <div class="container section--tight" data-product-filter data-count-one={h.countOne} data-count-many={h.count}>
+    <fieldset class="filter-group">
+      <legend>{h.filterGroup}</legend>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="group" value="" checked /><span>{h.all}</span></label>
+        {groups.map(([key, label]) => <label class="chip"><input type="radio" name="group" value={key} /><span>{label}</span></label>)}
+      </div>
+    </fieldset>
+    <fieldset class="filter-group">
+      <legend>{h.filterFibre}</legend>
+      <div class="chips">
+        <label class="chip"><input type="radio" name="fibre" value="" checked /><span>{h.allFibres}</span></label>
+        {fibres.map(([key, label]) => <label class="chip"><input type="radio" name="fibre" value={key} /><span>{label}</span></label>)}
+      </div>
+    </fieldset>
+
+    <p class="small muted" aria-live="polite" data-product-count>{fill(h.count, { count: products.length })}</p>
+
+    <ul class="product-list" data-products>
+      {products.map((p) => (
+        <li data-group={p.group} data-fibre={p.fibre}>
+          <article class="product-item">
+            <PhotoPlaceholder label={fill(t.pages.product.photos[0], { product: p.name })} shape="square" />
+            <div>
+              <h2><a href={lp(`/products/${p.slug}`)}>{p.name}</a></h2>
+              <p><Text t={[fibreLabel(p.fibre), p.putUp, p.length].join(' · ')} /></p>
+              <p>{p.packing}</p>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ul>
+    <p data-product-none hidden>{h.none}</p>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/products-filter';
+</script>
