@@ -1,5 +1,5 @@
 // Every lead the website collects goes through this file.
-// Today: Netlify Forms (email notification) and a Google Sheet (Apps Script web app).
+// Netlify Forms (email notification, only when the site is hosted on Netlify) and a Google Sheet (Apps Script web app).
 // To add a CRM later (Zoho, Interakt, AiSensy or similar), add one more sender to SENDERS.
 
 import site from '../data/site.json';
@@ -24,7 +24,6 @@ const toNetlify: Sender = async (form, fields) => {
 };
 
 const toGoogleSheet: Sender = async (form, fields) => {
-  if (!isSet(site.leads.appsScriptUrl)) return false;
   // Apps Script doesn't send CORS headers, so the reply can't be read. A sent request counts as success.
   await fetch(site.leads.appsScriptUrl, {
     method: 'POST',
@@ -35,7 +34,13 @@ const toGoogleSheet: Sender = async (form, fields) => {
   return true;
 };
 
-const SENDERS: Sender[] = [toNetlify, toGoogleSheet];
+const SENDERS: Sender[] = [
+  ...(__NETLIFY__ ? [toNetlify] : []),
+  ...(isSet(site.leads.appsScriptUrl) ? [toGoogleSheet] : []),
+];
+
+/** False while leads have nowhere to go (not on Netlify, no Google Sheet yet). Forms then rely on WhatsApp. */
+export const canSendLeads = SENDERS.length > 0;
 
 /** Page URL, UTM tags and consent timestamp, added to every lead. */
 export function contextFields(consentGiven: boolean): LeadFields {

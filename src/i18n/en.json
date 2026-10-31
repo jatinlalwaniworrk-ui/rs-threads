@@ -356,6 +356,8 @@
       "submit": "Apply to be a dealer",
       "success": "Application received. We'll call you within {callback}.",
       "alsoWa": "Also send on WhatsApp",
+      "successWaOnly": "One last step: send your details to us on WhatsApp.",
+      "sendWa": "Send on WhatsApp",
       "waDealer": "Hi, I'd like to become a Rose dealer. My details:"
     },
     "findDealer": {

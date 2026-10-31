@@ -1,5 +1,6 @@
 // Become-a-dealer form: validate, send the lead, then offer "Also send on WhatsApp" with the details filled in.
-import { contextFields, sendLead } from '../lib/leads';
+// While leads have nowhere to go, the form skips sending and WhatsApp becomes the only way to apply.
+import { canSendLeads, contextFields, sendLead } from '../lib/leads';
 import { formFields, indianMobile, looksLikeGstin, showErrors } from '../lib/forms';
 import { strings } from '../lib/client-strings';
 import { whatsappHref } from '../lib/whatsapp';
@@ -49,7 +50,7 @@ if (form) {
     submit.disabled = true;
     submit.textContent = s.sending;
     status.hidden = true;
-    const ok = await sendLead('dealer', lead);
+    const ok = !canSendLeads || (await sendLead('dealer', lead));
     submit.disabled = false;
     submit.textContent = label;
 

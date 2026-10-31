@@ -4,6 +4,7 @@ import LeadFormExtras from '../components/LeadFormExtras.astro';
 import Text from '../components/Text.astro';
 import WhatsAppLink from '../components/WhatsAppLink.astro';
 import india from '../data/india-states.json';
+import { canSendLeads } from '../lib/leads';
 import { products } from '../lib/site';
 import { useStrings, type Lang } from '../i18n';
 
@@ -118,8 +119,17 @@ const h = t.pages.becomeDealer;
       </form>
 
       <div class="form-status" data-dealer-success data-intro={h.waDealer} tabindex="-1" hidden>
-        <p><strong><Text t={h.success} /></strong></p>
-        <WhatsAppLink id="dealer-also" message={h.waDealer} class="btn btn--secondary">{h.alsoWa}</WhatsAppLink>
+        {canSendLeads ? (
+          <>
+            <p><strong><Text t={h.success} /></strong></p>
+            <WhatsAppLink id="dealer-also" message={h.waDealer} class="btn btn--secondary">{h.alsoWa}</WhatsAppLink>
+          </>
+        ) : (
+          <>
+            <p><strong>{h.successWaOnly}</strong></p>
+            <WhatsAppLink id="dealer-also" message={h.waDealer}>{h.sendWa}</WhatsAppLink>
+          </>
+        )}
       </div>
     </div>
   </div>
