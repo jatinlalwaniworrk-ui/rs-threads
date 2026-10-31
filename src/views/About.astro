@@ -57,7 +57,7 @@ const brandNotes = h.brands as Record<string, string>;
   <section class="section section--mist" aria-labelledby="about-process">
     <div class="container">
       <h2 id="about-process">{h.processTitle} <Text t={h.processTodo} /></h2>
-      <ol class="steps steps--six">
+      <ol class="steps">
         {h.process.map((step) => (
           <li>
             <h3>{step.title}</h3>
