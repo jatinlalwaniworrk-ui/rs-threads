@@ -35,17 +35,12 @@ Most values live in `src/data/site.json` (see README.md). Fix them, then run `np
 
 ## Products (`/products`)
 
-- Nylon · Spool · `[TODO]`
 - Bobbin Thread (Underthread): `[TODO]`
 
 ## Bobbin Thread (Underthread) (`/products/bobbin-thread`)
 
 - Brand: `[TODO: brand]`
 - Yarn: `[TODO]`
-
-## RS Embroidery Nylon (`/products/rs-embroidery-nylon`)
-
-- Length: `[TODO]`
 
 ## Shade card (`/shade-card`)
 
@@ -202,7 +197,6 @@ Put compressed WebP photos in `public/images/` and replace the placeholder block
 
 `src/data/products.json`:
 
-- RS Embroidery Nylon, `length`: [TODO]
 - Bobbin Thread (Underthread), `brand`: [TODO: brand]
 - Bobbin Thread (Underthread), `fibre`: [TODO]
 - Products with a Technical details section: denier, ply, colourfastness and recommended machine speed (shown as [TODO: confirm]).
