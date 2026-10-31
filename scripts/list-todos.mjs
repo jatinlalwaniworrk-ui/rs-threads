@@ -143,7 +143,7 @@ line();
 for (const p of products) {
   for (const [key, value] of Object.entries(p).filter(([, v]) => isTodo(v))) line(`- ${p.name}, \`${key}\`: ${value}`);
 }
-line('- Every product: denier, ply, colourfastness and recommended machine speed (shown as [TODO: confirm] on product pages).');
+line('- Products with a Technical details section: denier, ply, colourfastness and recommended machine speed (shown as [TODO: confirm]).');
 line();
 line('Other data:');
 line();

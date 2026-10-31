@@ -24,19 +24,26 @@ const group = t.groups[p.group as keyof typeof t.groups];
 const shadeCount = shadesFor(p.slug).length;
 const vars = { product: p.name, group: group.toLowerCase() };
 
-const putUp = isSet(p.length) ? `${p.length} ${p.putUp.toLowerCase()}` : p.putUp.toLowerCase();
+const putUp = p.length && isSet(p.length) ? `${p.length} ${p.putUp.toLowerCase()}` : p.putUp.toLowerCase();
 const title = fill(h.titleTemplate, { product: p.name, fibre: isSet(fibre) ? fibre.toLowerCase() : '', putUp });
 const description = fill(h.descriptionTemplate, { description: p.description });
 const related = products.filter((x) => x.group === p.group && x.slug !== p.slug);
 
+// Each row shows only when the product has that field in products.json.
+const has = (row: (string | undefined)[]): row is [string, string] => row[1] !== undefined;
 const specs = [
   [h.brand, p.brand],
-  [h.fibre, fibre],
+  [h.fibreLabels[p.fibreLabel === 'thread' ? 'thread' : 'yarn'], fibre],
   [h.putUp, p.putUp],
   [h.length, p.length],
+  [h.weight, p.weight],
   [h.packing, p.packing],
-];
-const tech = [h.denier, h.ply, h.colourfastness, h.speed];
+].filter(has);
+const order = [
+  [h.moq, p.moq],
+  [h.availability, p.availability],
+].filter(has);
+const tech = p.technical === false ? [] : [h.denier, h.ply, h.colourfastness, h.speed];
 
 const productLd = {
   '@context': 'https://schema.org',
@@ -48,8 +55,7 @@ const productLd = {
   manufacturer: { '@type': 'Organization', name: site.legalName },
   ...(isSet(p.brand) && { brand: { '@type': 'Brand', name: p.brand } }),
   ...(isSet(fibre) && { material: fibre }),
-  additionalProperty: specs
-    .slice(2)
+  additionalProperty: [...specs.slice(2), ...order]
     .filter(([, value]) => isSet(value))
     .map(([name, value]) => ({ '@type': 'PropertyValue', name, value: clean(value) })),
 };
@@ -84,18 +90,35 @@ const productLd = {
 
       <dl class="details">
         {specs.map(([label, value]) => <div><dt>{label}</dt><dd><Text t={value} /></dd></div>)}
-        <div>
-          <dt>{h.shades}</dt>
-          <dd><a href={lp(`/shade-card?product=${p.slug}`)}>{shadeCount ? fill(h.shadesLink, { count: shadeCount }) : h.shadesLinkNone}</a></dd>
-        </div>
+        {p.shades !== false && (
+          <div>
+            <dt>{h.shades}</dt>
+            <dd>
+              {typeof p.shades === 'string' ? <Text t={p.shades} /> : (
+                <a href={lp(`/shade-card?product=${p.slug}`)}>{shadeCount ? fill(h.shadesLink, { count: shadeCount }) : h.shadesLinkNone}</a>
+              )}
+            </dd>
+          </div>
+        )}
       </dl>
 
-      <section aria-labelledby="tech">
-        <h2 id="tech" class="h3" style="font-size: 1.125rem">{h.techTitle}</h2>
-        <dl class="details">
-          {tech.map((label) => <div><dt>{label}</dt><dd><Text t={h.techTodo} /></dd></div>)}
-        </dl>
-      </section>
+      {order.length > 0 && (
+        <section aria-labelledby="order">
+          <h2 id="order" class="h3" style="font-size: 1.125rem">{h.orderTitle}</h2>
+          <dl class="details">
+            {order.map(([label, value]) => <div><dt>{label}</dt><dd><Text t={value} /></dd></div>)}
+          </dl>
+        </section>
+      )}
+
+      {tech.length > 0 && (
+        <section aria-labelledby="tech">
+          <h2 id="tech" class="h3" style="font-size: 1.125rem">{h.techTitle}</h2>
+          <dl class="details">
+            {tech.map((label) => <div><dt>{label}</dt><dd><Text t={h.techTodo} /></dd></div>)}
+          </dl>
+        </section>
+      )}
 
       <p class="colour-note">{t.colourNote}</p>
     </div>
@@ -111,7 +134,7 @@ const productLd = {
               <a class="row-link" href={lp(`/products/${r.slug}`)}>
                 <span>
                   <span class="row-link__title">{r.name}</span>
-                  <span class="row-link__meta">{r.putUp} · {clean(r.length) || r.packing}</span>
+                  <span class="row-link__meta">{r.putUp} · {clean(r.length ?? r.weight ?? '') || r.packing}</span>
                 </span>
                 <Icon name="arrow" />
               </a>

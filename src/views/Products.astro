@@ -51,7 +51,7 @@ const fibreLabel = (key: string) => t.fibres[key as keyof typeof t.fibres] ?? ke
             <PhotoPlaceholder label={fill(t.pages.product.photos[0], { product: p.name })} shape="square" />
             <div>
               <h2><a href={lp(`/products/${p.slug}`)}>{p.name}</a></h2>
-              <p><Text t={[fibreLabel(p.fibre), p.putUp, p.length].join(' · ')} /></p>
+              <p><Text t={[fibreLabel(p.fibre), p.putUp, p.length ?? p.weight].filter(Boolean).join(' · ')} /></p>
               <p>{p.packing}</p>
             </div>
           </article>

@@ -80,6 +80,18 @@ Copy one product block in `src/data/products.json`, paste it at the end of the l
 - `fibre`: `nylon`, `polyester`, `viscose`, `zari` or `metallic`. For a new fibre, also add it under `fibres` in `src/i18n/en.json`.
 - `unit`: what buyers order in: `box`, `packet` or `bag`. For a new unit, add it under `client.units` in `src/i18n/en.json`.
 
+A row shows on the product page only if its field is in the block. Leave a field out to hide its row. Optional fields:
+
+| Field | Example | Shows as |
+|---|---|---|
+| `length` | `"4,000 m"` | Length |
+| `weight` | `"10 g per spool"` | Weight |
+| `fibreLabel` | `"thread"` | Calls the fibre row "Thread" instead of "Yarn" |
+| `shades` | `"600 shades available in stock"` | Shades available, as this text instead of the shade card link. `false` hides the row. |
+| `moq` | `"80 packets"` | Minimum order (MOQ), under Order details |
+| `availability` | `"In different shades, on order"` | Availability, under Order details |
+| `technical` | `false` | Hides the Technical details section |
+
 The product page, the catalogue, the dealer form checkboxes and the sitemap update themselves.
 
 ## Add a shade

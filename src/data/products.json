@@ -6,9 +6,11 @@
     "group": "embroidery-nylon",
     "fibre": "nylon",
     "putUp": "Cone",
-    "length": "[TODO]",
     "packing": "6 cones per packet",
     "unit": "packet",
+    "shades": false,
+    "moq": "80 packets",
+    "technical": false,
     "description": "Nylon embroidery thread on cones, packed 6 cones per packet. Sold under our main brand, Rose."
   },
   {
@@ -18,9 +20,12 @@
     "group": "embroidery-nylon",
     "fibre": "nylon",
     "putUp": "Spool",
-    "length": "[TODO]",
+    "weight": "10 g per spool",
     "packing": "12 spools per box",
     "unit": "box",
+    "moq": "400 boxes",
+    "availability": "In different shades, on order",
+    "technical": false,
     "description": "Nylon embroidery thread on spools, packed 12 spools per box. Sold under the Jai Plus brand."
   },
   {
@@ -33,6 +38,9 @@
     "length": "[TODO]",
     "packing": "12 spools per box",
     "unit": "box",
+    "shades": "600 shades available in stock",
+    "moq": "80 boxes and 105 boxes",
+    "technical": false,
     "description": "Nylon embroidery thread on spools, packed 12 spools per box. Sold under the RS brand."
   },
   {
@@ -41,6 +49,7 @@
     "brand": "Rose",
     "group": "embroidery-thread",
     "fibre": "polyester",
+    "fibreLabel": "thread",
     "putUp": "Y-cone",
     "length": "2,000 m",
     "packing": "12 cones per box",
@@ -102,7 +111,7 @@
     "group": "embroidery-thread",
     "fibre": "zari",
     "putUp": "Cone",
-    "length": "275 g net",
+    "weight": "275 g net",
     "packing": "60 cones per bag",
     "unit": "bag",
     "description": "Zari embroidery thread on cones of 275 g net, packed 60 cones per bag."
@@ -114,7 +123,7 @@
     "group": "embroidery-thread",
     "fibre": "[TODO]",
     "putUp": "Cone",
-    "length": "2,750 g gross",
+    "weight": "2,750 g gross",
     "packing": "Customisable",
     "unit": "box",
     "description": "Underthread for the bobbin of embroidery machines, on cones of 2,750 g gross. Packing can be customised to your order."
@@ -126,7 +135,8 @@
     "group": "embroidery-thread",
     "fibre": "metallic",
     "putUp": "Spool",
-    "length": "10,000 m, 80 g net / 115 g gross",
+    "length": "10,000 m",
+    "weight": "80 g net / 115 g gross",
     "packing": "Customisable",
     "unit": "box",
     "description": "Metallic embroidery yarn (badla) on spools of 10,000 m, 80 g net and 115 g gross. Packing can be customised to your order."
