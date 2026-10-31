@@ -1,0 +1,52 @@
+{
+  "siteName": "Rose Embroidery Thread [TODO: confirm]",
+  "legalName": "Mirchumal Panjumal",
+  "businessType": "[TODO: proprietorship / partnership / LLP / private limited]",
+  "brands": [
+    { "name": "Rose", "main": true, "trademark": "[TODO]" },
+    { "name": "RS", "main": false, "trademark": "[TODO]" },
+    { "name": "Jai Plus", "main": false, "trademark": "[TODO]" }
+  ],
+  "established": "[TODO: year]",
+  "gstin": "[TODO]",
+  "udyam": "[TODO, or remove]",
+  "address": {
+    "street": "[TODO: factory/office address]",
+    "city": "[TODO: city]",
+    "state": "Rajasthan",
+    "pin": "[TODO: PIN]",
+    "mapsUrl": "[TODO: Google Maps link]"
+  },
+  "jurisdictionCity": "[TODO: city]",
+  "whatsapp": "[TODO: 91XXXXXXXXXX]",
+  "phone": "[TODO]",
+  "email": "rosethreads.india@gmail.com",
+  "hours": "[TODO: e.g. Mon to Sat, 10 AM to 7 PM]",
+  "domain": "[TODO]",
+  "grievanceOfficer": {
+    "name": "[TODO: name]",
+    "email": "[TODO: email]"
+  },
+  "dealerCallbackTime": "[TODO: 2 working days]",
+  "links": {
+    "indiamart": "[TODO: URL]",
+    "tradeindia": "[TODO: URL]",
+    "justdial": "[TODO: URL]",
+    "googleBusiness": "[TODO: URL]",
+    "googleReviews": "[TODO: URL]",
+    "instagram": "[TODO: URL]",
+    "facebook": "[TODO: URL]",
+    "youtube": "[TODO: URL]",
+    "linkedin": "[TODO: URL]"
+  },
+  "indiamartBadge": "[TODO: only if we hold one, e.g. TrustSEAL]",
+  "analytics": {
+    "ga4": "[TODO]",
+    "metaPixel": "[TODO, keep off for now]",
+    "metaPixelEnabled": false,
+    "searchConsole": "[TODO]"
+  },
+  "leads": {
+    "appsScriptUrl": "[TODO]"
+  }
+}

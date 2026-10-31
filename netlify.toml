@@ -1,0 +1,38 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# Security headers on every page.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    # Google Analytics, the Meta Pixel and the Google Sheet lead script are allowed here,
+    # but they only load after the visitor accepts cookies (or never, while their IDs are empty).
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' https://www.googletagmanager.com https://connect.facebook.net;
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://www.facebook.com;
+      font-src 'self';
+      connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://script.google.com https://script.googleusercontent.com https://www.facebook.com;
+      frame-src https://www.google.com https://maps.google.com;
+      form-action 'self';
+      base-uri 'self';
+      object-src 'none';
+      frame-ancestors 'none';
+      upgrade-insecure-requests
+    """
+
+# Built files have hashed names, so browsers can keep them for a year.
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
