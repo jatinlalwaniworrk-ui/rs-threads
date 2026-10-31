@@ -67,11 +67,11 @@ const order = ['/', '/products', '/shade-card', '/become-a-dealer', '/find-a-dea
 const rank = (p) => (order.includes(p) ? order.indexOf(p) : p.startsWith('/products/') ? 1.5 : 99);
 pages.sort((a, b) => rank(a.path) - rank(b.path) || a.path.localeCompare(b.path));
 
-// TODOs on every product page are listed once.
+// TODOs on more than one product page are listed once, with how many pages show them.
 const productPages = pages.filter((p) => p.path.startsWith('/products/'));
-const sharedProduct = productPages.length
-  ? productPages[0].todos.filter((t) => productPages.every((p) => p.todos.includes(t)))
-  : [];
+const pageCount = new Map();
+for (const p of productPages) for (const t of p.todos) pageCount.set(t, (pageCount.get(t) ?? 0) + 1);
+const sharedProduct = [...pageCount].filter(([, n]) => n > 1).map(([t]) => t);
 
 const out = [];
 const line = (s = '') => out.push(s);
@@ -100,7 +100,7 @@ const section = (title, items) => {
 };
 
 section('Every page (header and footer)', pages[0]?.global ?? []);
-section('Every product page', sharedProduct);
+section('Product pages (repeated)', sharedProduct.map((t) => `${t} (${pageCount.get(t)} pages)`));
 for (const p of pages) {
   const own = p.path.startsWith('/products/') ? p.todos.filter((t) => !sharedProduct.includes(t)) : p.todos;
   section(`${p.h1} (\`${p.path}\`)`, own);

@@ -20,6 +20,13 @@ Most values live in `src/data/site.json` (see README.md). Fix them, then run `np
 - Business hours: `[TODO: e.g. Mon to Sat, 10 AM to 7 PM]`
 - …Our bank details never change over a message or email. Call `[TODO]`
 
+## Product pages (repeated)
+
+- Denier: `[TODO: confirm]` (8 pages)
+- Ply: `[TODO: confirm]` (8 pages)
+- Colourfastness: `[TODO: confirm]` (8 pages)
+- Recommended machine speed: `[TODO: confirm]` (8 pages)
+
 ## Embroidery thread manufacturer in Rajasthan, supplying all of India (`/`)
 
 - `[TODO: these are placeholder shades. Replace them in shades.json]`
@@ -36,63 +43,10 @@ Most values live in `src/data/site.json` (see README.md). Fix them, then run `np
 
 - Brand: `[TODO: brand]`
 - Yarn: `[TODO]`
-- Denier: `[TODO: confirm]`
-- Ply: `[TODO: confirm]`
-- Colourfastness: `[TODO: confirm]`
-- Recommended machine speed: `[TODO: confirm]`
-
-## Rose Metallic Yarn (Badla) (`/products/rose-metallic-yarn-badla`)
-
-- Denier: `[TODO: confirm]`
-- Ply: `[TODO: confirm]`
-- Colourfastness: `[TODO: confirm]`
-- Recommended machine speed: `[TODO: confirm]`
-
-## Rose Smart Silk (`/products/rose-smart-silk`)
-
-- Denier: `[TODO: confirm]`
-- Ply: `[TODO: confirm]`
-- Colourfastness: `[TODO: confirm]`
-- Recommended machine speed: `[TODO: confirm]`
-
-## Rose SS 4000 (`/products/rose-ss-4000`)
-
-- Denier: `[TODO: confirm]`
-- Ply: `[TODO: confirm]`
-- Colourfastness: `[TODO: confirm]`
-- Recommended machine speed: `[TODO: confirm]`
-
-## Rose SS 6000 (`/products/rose-ss-6000`)
-
-- Denier: `[TODO: confirm]`
-- Ply: `[TODO: confirm]`
-- Colourfastness: `[TODO: confirm]`
-- Recommended machine speed: `[TODO: confirm]`
-
-## Rose Viscose (`/products/rose-viscose`)
-
-- Denier: `[TODO: confirm]`
-- Ply: `[TODO: confirm]`
-- Colourfastness: `[TODO: confirm]`
-- Recommended machine speed: `[TODO: confirm]`
-
-## Rose Zari (`/products/rose-zari`)
-
-- Denier: `[TODO: confirm]`
-- Ply: `[TODO: confirm]`
-- Colourfastness: `[TODO: confirm]`
-- Recommended machine speed: `[TODO: confirm]`
 
 ## RS Embroidery Nylon (`/products/rs-embroidery-nylon`)
 
 - Length: `[TODO]`
-
-## RS Viscose (`/products/rs-viscose`)
-
-- Denier: `[TODO: confirm]`
-- Ply: `[TODO: confirm]`
-- Colourfastness: `[TODO: confirm]`
-- Recommended machine speed: `[TODO: confirm]`
 
 ## Shade card (`/shade-card`)
 
