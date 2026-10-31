@@ -1,0 +1,49 @@
+---
+// Privacy policy, Terms of use and Terms of trade. Text lives in src/content/<lang>/<page>.md,
+// with {tokens} filled from site.json. Remove `draft` in the route file once a lawyer has reviewed the page.
+import { marked } from 'marked';
+import Base from '../layouts/Base.astro';
+import { site, fullAddress, siteVars, withMark } from '../lib/site';
+import { fill, highlightTodosInHtml } from '../lib/todo';
+import { useStrings, type Lang } from '../i18n';
+
+type Page = 'privacy' | 'termsOfUse' | 'termsOfTrade';
+
+interface Props {
+  lang: Lang;
+  page: Page;
+  draft?: boolean;
+}
+
+const files = import.meta.glob<string>('../content/*/*.md', { query: '?raw', import: 'default', eager: true });
+const slugs: Record<Page, string> = { privacy: 'privacy', termsOfUse: 'terms-of-use', termsOfTrade: 'terms-of-trade' };
+
+const { lang, page, draft = true } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages[page];
+const slug = slugs[page];
+const source = files[`../content/${lang}/${slug}.md`] ?? files[`../content/en/${slug}.md`];
+
+const vars = {
+  ...siteVars,
+  address: fullAddress,
+  grievanceName: site.grievanceOfficer.name,
+  grievanceEmail: site.grievanceOfficer.email,
+  marks: site.brands.map((b) => withMark(b.name)).join(', '),
+  payment: fill(t.payment.text, siteVars),
+};
+// Links inside the markdown point at English paths; send them to the same language.
+const prefix = lang === 'en' ? '' : `/${lang}`;
+const html = highlightTodosInHtml(
+  (marked.parse(fill(source, vars), { async: false }) as string).replace(/href="\/(?!\/)/g, `href="${prefix}/`),
+);
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>
+  <div class="container" style="padding-block: 32px 72px">
+    <article class="legal">
+      {draft && <p class="draft-note">{t.legal.draft}</p>}
+      <h1>{h.title}</h1>
+      <Fragment set:html={html} />
+    </article>
+  </div>
+</Base>

@@ -1,0 +1,47 @@
+---
+// A download button links to its PDF once the file is in public/downloads/, and to the 404 page until then.
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Text from '../components/Text.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.downloads;
+
+const files = Object.entries(h.items).map(([slug, label]) => {
+  const file = `${slug}.pdf`;
+  const ready = existsSync(join(process.cwd(), 'public', 'downloads', file));
+  return { slug, label, ready, href: ready ? `/downloads/${file}` : '/404' };
+});
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>
+  <div class="container page-head">
+    <h1>{h.h1}</h1>
+    <p class="lead">{h.intro}</p>
+  </div>
+
+  <div class="container stack" style="padding-block: 16px 64px">
+    <ul class="downloads">
+      {files.map((f) => (
+        <li>
+          <a class="btn btn--secondary" href={f.href} data-download={f.slug} download={f.ready ? '' : undefined}>
+            <Icon name="download" />{f.label}
+          </a>
+          {!f.ready && <p class="small" style="margin: 6px 0 0"><Text t={h.notReady} /></p>}
+        </li>
+      ))}
+    </ul>
+    <p>
+      {h.gst}{' '}
+      <WhatsAppLink id="gst-certificate" message={h.waGst} class="text-link" icon={false}>{h.gstCta}</WhatsAppLink>
+    </p>
+  </div>
+</Base>

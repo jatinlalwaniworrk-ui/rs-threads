@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import dealers from '../data/dealers.json';
+import { linkOr404 } from '../lib/site';
+import { fill, isSet } from '../lib/todo';
+import { localePath, useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+type Dealer = { firm: string; city: string; state: string; phone: string; mapUrl?: string };
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.findDealer;
+
+// Group by state, then sort by city and firm.
+const byState = new Map<string, Dealer[]>();
+for (const d of [...(dealers as Dealer[])].sort((a, b) => a.city.localeCompare(b.city) || a.firm.localeCompare(b.firm))) {
+  byState.set(d.state, [...(byState.get(d.state) ?? []), d]);
+}
+const states = [...byState.entries()].sort(([a], [b]) => a.localeCompare(b));
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>
+  <div class="container page-head">
+    <h1>{h.h1}</h1>
+    <p class="lead">{h.intro}</p>
+  </div>
+
+  <div class="container" style="padding-block: 16px 64px">
+    {states.length === 0 ? (
+      <div class="stack">
+        <p>{h.empty}</p>
+        <a class="btn btn--primary" href={localePath(lang, '/become-a-dealer')}>{h.emptyCta}</a>
+      </div>
+    ) : (
+      states.map(([state, list]) => (
+        <section class="dealer-state" aria-labelledby={`state-${state}`}>
+          <h2 id={`state-${state}`}>{state}</h2>
+          <ul class="dealer-list">
+            {list.map((d) => (
+              <li>
+                <div>
+                  <strong>{d.firm}</strong>
+                  <div class="muted">{d.city}</div>
+                </div>
+                <div class="actions">
+                  {isSet(d.phone) && <a href={`tel:${d.phone.replace(/[^\d+]/g, '')}`} aria-label={fill(h.call, { firm: d.firm })}>{d.phone}</a>}
+                  <a href={linkOr404(d.mapUrl ?? '')} target="_blank" rel="noopener">{h.map}</a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    )}
+  </div>
+</Base>

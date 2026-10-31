@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import Text from '../components/Text.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.genuine;
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage} waMessage={h.waReport}>
+  <div class="container page-head">
+    <h1>{h.h1}</h1>
+    <p class="lead">{h.intro}</p>
+  </div>
+
+  <section class="section section--tight" aria-labelledby="genuine-photos">
+    <div class="container">
+      <h2 id="genuine-photos">{h.photosTitle}</h2>
+      <div class="photo-grid">
+        {h.photos.map((label) => <PhotoPlaceholder label={label} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="genuine-spot">
+    <div class="container narrow">
+      <h2 id="genuine-spot">{h.spotTitle}</h2>
+      <p><Text t={h.spotTodo} /></p>
+    </div>
+  </section>
+
+  <section class="section section--mist" aria-labelledby="genuine-report">
+    <div class="container narrow">
+      <h2 id="genuine-report">{h.reportTitle}</h2>
+      <p>{h.reportText}</p>
+      <WhatsAppLink id="report-duplicate" message={h.waReport}>{h.reportCta}</WhatsAppLink>
+    </div>
+  </section>
+</Base>

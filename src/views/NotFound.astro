@@ -1,0 +1,27 @@
+---
+// Real 404s and links that aren't ready yet both land here.
+import Base from '../layouts/Base.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { localePath, useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.notFound;
+const lp = (p: string) => localePath(lang, p);
+---
+<Base lang={lang} title={h.title} description={h.description} waMessage={h.waMessage} noindex>
+  <div class="container narrow" style="padding-block: 48px 72px">
+    <h1>{h.h1}</h1>
+    <p class="lead">{h.text}</p>
+    <div class="btn-row" style="margin-block: 24px">
+      <a class="btn btn--secondary" href={lp('/')}>{h.home}</a>
+      <a class="btn btn--secondary" href={lp('/products')}>{h.products}</a>
+      <a class="btn btn--secondary" href={lp('/shade-card')}>{h.shadeCard}</a>
+    </div>
+    <WhatsAppLink id="404" message={h.waMessage}>{h.wa}</WhatsAppLink>
+  </div>
+</Base>

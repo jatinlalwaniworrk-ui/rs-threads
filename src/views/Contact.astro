@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import BusinessDetails from '../components/BusinessDetails.astro';
+import Icon from '../components/Icon.astro';
+import PaymentNotice from '../components/PaymentNotice.astro';
+import PlatformLinks from '../components/PlatformLinks.astro';
+import Text from '../components/Text.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { site, fullAddress, addressIsSet, linkOr404, telHref, mailHref } from '../lib/site';
+import { clean, isSet } from '../lib/todo';
+import { useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.contact;
+const mapQuery = encodeURIComponent(`${site.legalName}, ${clean(fullAddress)}`);
+const mapsLink = isSet(site.address.mapsUrl) ? site.address.mapsUrl : addressIsSet ? `https://www.google.com/maps/search/?api=1&query=${mapQuery}` : '/404';
+const reviews = linkOr404(site.links.googleReviews);
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>
+  <div class="container page-head">
+    <h1>{h.h1}</h1>
+    <p class="lead">{h.intro}</p>
+  </div>
+
+  <div class="container split" style="padding-block: 16px 48px">
+    <div class="stack">
+      <WhatsAppLink id="contact" message={t.wa.rates} class="btn btn--primary btn--block">{h.waCta}</WhatsAppLink>
+      <dl class="details">
+        <div>
+          <dt>{h.call}</dt>
+          <dd>{isSet(site.phone) ? <a href={telHref}>{site.phone}</a> : <Text t={site.phone} />}</dd>
+        </div>
+        <div><dt>{h.email}</dt><dd><a href={mailHref}>{site.email}</a></dd></div>
+        <div><dt>{h.hours}</dt><dd><Text t={site.hours} /></dd></div>
+        <div>
+          <dt>{h.address}</dt>
+          <dd>
+            <Text t={fullAddress} /><br />
+            <a class="text-link small" href={mapsLink} target={mapsLink.startsWith('https://') ? '_blank' : undefined} rel="noopener"><Icon name="pin" />{h.openMaps}</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div>
+      {addressIsSet ? (
+        <iframe
+          class="map-frame"
+          title={h.mapTitle}
+          src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      ) : (
+        <div class="photo-ph" role="img" aria-label={h.mapTitle}>
+          <Icon name="pin" />
+          <span><Text t={h.mapTodo} /></span>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <section class="section section--mist" aria-labelledby="contact-find">
+    <div class="container">
+      <h2 id="contact-find">{t.footer.findUs}</h2>
+      <PlatformLinks t={t} light />
+      <p style="margin-top: 16px">
+        <a class="text-link" href={reviews} target={reviews.startsWith('https://') ? '_blank' : undefined} rel="noopener"><Icon name="star" />{t.platforms.googleReviews}</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow stack">
+      <BusinessDetails t={t} />
+      <PaymentNotice t={t} />
+    </div>
+  </section>
+</Base>

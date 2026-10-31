@@ -31,7 +31,7 @@ interface Props {
 const { lang = 'en', title, description, waPage, waMessage, jsonLd = [], noindex = false, isHome = false } = Astro.props;
 const t = useStrings(lang);
 
-const pathname = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const pathname = Astro.url.pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/';
 const path = stripLang(pathname);
 const canonical = new URL(pathname, Astro.site).href;
 const ogImage = new URL('/og-image.jpg', Astro.site).href;

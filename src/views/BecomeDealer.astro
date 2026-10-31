@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+import LeadFormExtras from '../components/LeadFormExtras.astro';
+import Text from '../components/Text.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import india from '../data/india-states.json';
+import { products } from '../lib/site';
+import { useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.becomeDealer;
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>
+  <div class="container page-head">
+    <h1>{h.h1}</h1>
+    <p class="lead">{h.intro}</p>
+  </div>
+
+  <div class="container split" style="padding-block: 24px 64px">
+    <div>
+      <h2>{h.whyTitle}</h2>
+      <ul class="audience audience--single">
+        {h.why.map((item) => (
+          <li>
+            <h3>{item.title}</h3>
+            <p><Text t={item.text} /></p>
+          </li>
+        ))}
+      </ul>
+      <h2 style="margin-top: 32px">{h.termsTitle}</h2>
+      <p><Text t={h.termsTodo} /></p>
+    </div>
+
+    <div>
+      <h2 id="dealer-form-title">{h.formTitle}</h2>
+      <form
+        name="dealer"
+        method="POST"
+        action="/"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="form"
+        aria-labelledby="dealer-form-title"
+        data-dealer-form
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="dealer" />
+
+        <div class="field">
+          <label for="d-name">{h.name}</label>
+          <input type="text" id="d-name" name="name" autocomplete="name" required aria-describedby="d-name-error" />
+          <p class="field-error" id="d-name-error" data-error-for="name"></p>
+        </div>
+        <div class="field">
+          <label for="d-firm">{h.firm}</label>
+          <input type="text" id="d-firm" name="firm" autocomplete="organization" required aria-describedby="d-firm-error" />
+          <p class="field-error" id="d-firm-error" data-error-for="firm"></p>
+        </div>
+        <div class="field">
+          <label for="d-city">{h.city}</label>
+          <input type="text" id="d-city" name="city" autocomplete="address-level2" required aria-describedby="d-city-error" />
+          <p class="field-error" id="d-city-error" data-error-for="city"></p>
+        </div>
+        <div class="field">
+          <label for="d-state">{h.state}</label>
+          <select id="d-state" name="state" required aria-describedby="d-state-error">
+            <option value="">{h.chooseState}</option>
+            <optgroup label={h.statesLabel}>{india.states.map((s) => <option>{s}</option>)}</optgroup>
+            <optgroup label={h.utsLabel}>{india.unionTerritories.map((s) => <option>{s}</option>)}</optgroup>
+          </select>
+          <p class="field-error" id="d-state-error" data-error-for="state"></p>
+        </div>
+        <div class="field">
+          <label for="d-gstin">{h.gstin}</label>
+          <input type="text" id="d-gstin" name="gstin" autocapitalize="characters" maxlength="15" aria-describedby="d-gstin-error" />
+          <p class="field-error" id="d-gstin-error" data-error-for="gstin"></p>
+        </div>
+        <div class="field">
+          <label for="d-whatsapp">{h.whatsapp}</label>
+          <input type="tel" id="d-whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" required aria-describedby="d-whatsapp-hint d-whatsapp-error" />
+          <p class="hint" id="d-whatsapp-hint">{h.whatsappHint}</p>
+          <p class="field-error" id="d-whatsapp-error" data-error-for="whatsapp"></p>
+        </div>
+        <div class="field">
+          <label for="d-volume">{h.volume}</label>
+          <input type="text" id="d-volume" name="volume" aria-describedby="d-volume-hint" />
+          <p class="hint" id="d-volume-hint">{h.volumeHint}</p>
+        </div>
+        <fieldset class="field">
+          <legend>{h.products}</legend>
+          <div class="checks checks--cols">
+            {products.map((p) => (
+              <label class="check"><input type="checkbox" name="products" value={p.name} /><span>{p.name}</span></label>
+            ))}
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="d-brands">{h.brandsNow}</label>
+          <input type="text" id="d-brands" name="brands_now" />
+        </div>
+        <div class="field">
+          <label for="d-heard">{h.heard}</label>
+          <select id="d-heard" name="heard">
+            <option value="">{h.chooseState}</option>
+            {h.heardOptions.map((o) => <option>{o}</option>)}
+          </select>
+        </div>
+
+        <LeadFormExtras t={t} lang={lang} id="d" />
+
+        <p class="form-status form-status--error" data-form-status role="alert" hidden>{t.client.errSubmit}</p>
+        <button type="submit" class="btn btn--primary btn--block">{h.submit}</button>
+      </form>
+
+      <div class="form-status" data-dealer-success data-intro={h.waDealer} tabindex="-1" hidden>
+        <p><strong><Text t={h.success} /></strong></p>
+        <WhatsAppLink id="dealer-also" message={h.waDealer} class="btn btn--secondary">{h.alsoWa}</WhatsAppLink>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/dealer-form';
+</script>

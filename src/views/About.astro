@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import BusinessDetails from '../components/BusinessDetails.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import Text from '../components/Text.astro';
+import { site, withMark } from '../lib/site';
+import { useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.about;
+const brandNotes = h.brands as Record<string, string>;
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage}>
+  <div class="container page-head">
+    <h1>{h.h1}</h1>
+    <p class="lead"><Text t={h.who} /></p>
+  </div>
+
+  <section class="section section--tight">
+    <div class="container">
+      <dl class="details">
+        {h.facts.map((f) => <div><dt>{f.label}</dt><dd><Text t={f.value} /></dd></div>)}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="about-brands">
+    <div class="container">
+      <h2 id="about-brands">{h.brandsTitle}</h2>
+      <ul class="rows">
+        {site.brands.map((b) => (
+          <li class="row-link" style="padding: 16px 0">
+            <span>
+              <span class="row-link__title">{withMark(b.name)}</span>
+              <span class="row-link__meta"><Text t={brandNotes[b.name] ?? ''} /></span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="about-photos">
+    <div class="container">
+      <h2 id="about-photos">{h.photosTitle}</h2>
+      <div class="photo-grid">
+        {h.photos.map((label) => <PhotoPlaceholder label={label} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" aria-labelledby="about-process">
+    <div class="container">
+      <h2 id="about-process">{h.processTitle} <Text t={h.processTodo} /></h2>
+      <ol class="steps steps--six">
+        {h.process.map((step) => (
+          <li>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <BusinessDetails t={t} />
+    </div>
+  </section>
+</Base>
