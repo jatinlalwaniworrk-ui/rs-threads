@@ -1,0 +1,515 @@
+{
+  "langName": "English",
+  "locale": "en_IN",
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "shadeCard": "Shade card",
+    "becomeDealer": "Become a dealer",
+    "findDealer": "Find a dealer",
+    "about": "About",
+    "contact": "Contact",
+    "downloads": "Downloads",
+    "genuine": "Genuine Rose products",
+    "privacy": "Privacy policy",
+    "termsOfUse": "Terms of use",
+    "termsOfTrade": "Terms of trade",
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "skip": "Skip to content",
+    "language": "Language",
+    "mainNav": "Main"
+  },
+  "header": {
+    "cta": "Get rates on WhatsApp",
+    "ctaShort": "Get rates",
+    "logoAlt": "Rose Embroidery Thread, home",
+    "enquiryList": "Enquiry list"
+  },
+  "wa": {
+    "float": "Chat with us on WhatsApp",
+    "default": "Hi, I'd like your rates for embroidery thread. I'm on your {page} page. (via website)",
+    "rates": "Hi, I'd like your rates for embroidery thread. (via website)"
+  },
+  "footer": {
+    "business": "Business details",
+    "links": "Useful links",
+    "findUs": "Find us on",
+    "copyright": "© {year} {legalName}. All rights reserved.",
+    "cookieSettings": "Cookie settings"
+  },
+  "business": {
+    "title": "Business details",
+    "legalName": "Legal name",
+    "businessType": "Business type",
+    "brands": "Trading brands",
+    "gstin": "GSTIN",
+    "verifyGstin": "Verify on the GST portal",
+    "udyam": "Udyam (MSME) registration",
+    "established": "Established",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Business hours",
+    "indiamartBadge": "IndiaMART",
+    "trademarkNote": "® marks a registered trademark. ™ marks a trademark we use that is not yet registered."
+  },
+  "platforms": {
+    "label": "Rose on {platform}",
+    "whatsapp": "WhatsApp",
+    "indiamart": "IndiaMART",
+    "tradeindia": "TradeIndia",
+    "justdial": "JustDial",
+    "googleBusiness": "Google",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn",
+    "googleReviews": "See our Google reviews"
+  },
+  "payment": {
+    "title": "Pay safely",
+    "text": "We only accept payments into bank accounts in the name of {legalName}. Our bank details never change over a message or email. Call {phone} to confirm before paying."
+  },
+  "colourNote": "Colours on screen are approximate. Ask us for the physical shade card before ordering.",
+  "photoLabel": "Photo needed",
+  "groups": {
+    "embroidery-nylon": "Embroidery nylon",
+    "embroidery-thread": "Embroidery thread"
+  },
+  "fibres": {
+    "nylon": "Nylon",
+    "polyester": "Polyester",
+    "viscose": "Viscose",
+    "zari": "Zari",
+    "metallic": "Metallic"
+  },
+  "families": {
+    "reds": "Reds",
+    "pinks": "Pinks",
+    "oranges": "Oranges",
+    "yellows": "Yellows",
+    "greens": "Greens",
+    "blues": "Blues",
+    "purples": "Purples",
+    "browns": "Browns",
+    "greys": "Greys and black",
+    "whites": "Whites and creams",
+    "metallics": "Gold and silver"
+  },
+  "consent": {
+    "label": "I agree to be contacted by {legalName} on WhatsApp, phone and email about my enquiry and our products.",
+    "privacy": "Privacy policy"
+  },
+  "honeypot": "Leave this empty",
+  "cookies": {
+    "label": "Cookie notice",
+    "text": "We'd like to use cookies to see how visitors use this site (Google Analytics). Nothing loads unless you accept.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "privacy": "Privacy policy"
+  },
+  "legal": {
+    "draft": "Draft, pending legal review",
+    "updated": "Last updated: {date}"
+  },
+  "client": {
+    "itemOne": "1 item",
+    "itemMany": "{count} items",
+    "panelTitle": "Your enquiry list",
+    "close": "Close",
+    "empty": "Your list is empty. Add products or shades as you browse, then send everything on WhatsApp in one message.",
+    "browse": "Browse products",
+    "openShadeCard": "Open shade card",
+    "product": "Product",
+    "chooseProduct": "Choose product",
+    "shade": "Shade",
+    "shadeNo": "Shade no. (optional)",
+    "pickShade": "Pick on shade card",
+    "quantity": "Quantity",
+    "decrease": "One less",
+    "increase": "One more",
+    "remove": "Remove {item}",
+    "removeShort": "Remove",
+    "detailsTitle": "Your details",
+    "name": "Your name",
+    "firm": "Firm name",
+    "city": "City",
+    "send": "Send enquiry on WhatsApp",
+    "sentTitle": "Your enquiry is ready in WhatsApp",
+    "sentText": "Press send in WhatsApp to reach us. Clear this list now?",
+    "clear": "Clear list",
+    "keep": "Keep list",
+    "msgIntro": "Hi, I'd like rates for these items:",
+    "msgShade": "shade {shade}",
+    "msgNoShade": "shade not chosen",
+    "msgName": "Name",
+    "msgFirm": "Firm",
+    "msgCity": "City",
+    "msgVia": "(via website)",
+    "added": "Added to your enquiry list",
+    "inList": "In your enquiry list",
+    "removed": "Removed from your enquiry list",
+    "shadeAdded": "Shade {shade} added",
+    "shadeRemoved": "Shade {shade} removed",
+    "shadesInList": "{count} shades in your list",
+    "shadeInList": "1 shade in your list",
+    "inListShort": "Added",
+    "errRequired": "Please fill this in.",
+    "errConsent": "Please tick the box so we can contact you.",
+    "errProduct": "Choose a product for every item.",
+    "errPhone": "Enter a 10-digit Indian mobile number starting with 6, 7, 8 or 9.",
+    "errGstin": "This doesn't look like a GSTIN. Check it, or leave it empty.",
+    "errSubmit": "Something went wrong. Please try again, or send your details on WhatsApp.",
+    "sending": "Sending…",
+    "units": {
+      "box": [
+        "box",
+        "boxes"
+      ],
+      "packet": [
+        "packet",
+        "packets"
+      ],
+      "bag": [
+        "bag",
+        "bags"
+      ]
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Embroidery thread manufacturer in India",
+      "description": "Rose embroidery thread by Mirchumal Panjumal: nylon, polyester, viscose, zari and metallic thread in bulk for embroiderers, dealers and garment makers. Pan-India dispatch. Get rates on WhatsApp.",
+      "waPage": "home",
+      "heroPhoto": "Photo: Rose cones on a rack, or a machine running Rose thread",
+      "h1": "Embroidery thread manufacturer in Rajasthan, supplying all of India",
+      "lead": "Nylon, polyester, viscose, zari and metallic embroidery thread in bulk for machine owners, dealers and garment makers. Ask for rates on WhatsApp. We dispatch by transport (LR).",
+      "ctaPrimary": "Get rates on WhatsApp",
+      "ctaSecondary": "See shade card",
+      "stripTodo": "[TODO: these are placeholder shades. Replace them in shades.json]",
+      "productsTitle": "Our threads",
+      "productsAll": "See all products",
+      "orderTitle": "How ordering works",
+      "orderSteps": [
+        {
+          "title": "Pick products and shades",
+          "text": "Add them to your enquiry list as you browse, with the quantity you need."
+        },
+        {
+          "title": "Send the list on WhatsApp",
+          "text": "One message with every item. No login and no payment on the website."
+        },
+        {
+          "title": "Get the rate and confirm",
+          "text": "We reply with rates. Once you confirm, we dispatch by transport (LR) anywhere in India."
+        }
+      ],
+      "forTitle": "Who we supply",
+      "forItems": [
+        {
+          "title": "Embroidery machine owners and job workers",
+          "text": "Check products and shade numbers on your phone, then get the rate on WhatsApp."
+        },
+        {
+          "title": "Dealers and wholesalers",
+          "text": "Stock Rose, RS and Jai Plus in your city. Dealer terms: [TODO]",
+          "link": "/become-a-dealer",
+          "linkText": "Become a dealer"
+        },
+        {
+          "title": "Garment manufacturers and ethnic-wear brands",
+          "text": "Bulk orders by shade number. Ask us about matching shades across dye lots."
+        },
+        {
+          "title": "Export houses",
+          "text": "Ask us for quality details before you order. Lab test reports: [TODO: only if we have real ones]"
+        }
+      ],
+      "dealerTitle": "Sell Rose in your city",
+      "dealerText": "We're adding dealers and distributors across India.",
+      "dealerCta": "Apply to be a dealer",
+      "testimonialsTitle": "What buyers say",
+      "testimonialsTodo": "[TODO: testimonials, only with the customer's written permission]"
+    },
+    "products": {
+      "title": "Embroidery thread catalogue: nylon, polyester, viscose and zari",
+      "description": "Embroidery nylon, polyester, viscose, zari, metallic badla and bobbin thread from Rose, RS and Jai Plus. Packing, lengths and shades. Wholesale rates on WhatsApp.",
+      "waPage": "products",
+      "h1": "Products",
+      "intro": "Two ranges: embroidery nylon and embroidery thread. Open a product for packing, shades and rates.",
+      "filterGroup": "Range",
+      "filterFibre": "Fibre",
+      "all": "All",
+      "allFibres": "All fibres",
+      "count": "{count} products",
+      "countOne": "1 product",
+      "view": "View {product}",
+      "none": "No products match. Choose another range or fibre."
+    },
+    "product": {
+      "titleTemplate": "{product}: {fibre} embroidery thread, {putUp}",
+      "descriptionTemplate": "{description} Wholesale rates on WhatsApp. Pan-India dispatch.",
+      "photos": [
+        "Photo: {product} box",
+        "Photo: {product} packing",
+        "Photo: {product} shade spread",
+        "Photo: embroidery close-up with {product}"
+      ],
+      "gallery": "Photos of {product}",
+      "brand": "Brand",
+      "fibre": "Fibre",
+      "putUp": "Put-up",
+      "length": "Length / weight",
+      "packing": "Packing",
+      "shades": "Shades available",
+      "shadesLink": "See {count} shades on the shade card",
+      "shadesLinkNone": "See the shade card",
+      "techTitle": "Technical details",
+      "denier": "Denier",
+      "ply": "Ply",
+      "colourfastness": "Colourfastness",
+      "speed": "Recommended machine speed",
+      "techTodo": "[TODO: confirm]",
+      "rate": "Get rate on WhatsApp",
+      "sample": "Request a sample",
+      "add": "Add to enquiry list",
+      "waRate": "Hi, I'd like the rate for {product} (via website)",
+      "waSample": "Hi, I'd like a sample of {product} (via website)",
+      "related": "More {group}"
+    },
+    "shadeCard": {
+      "title": "Shade card: embroidery thread colours",
+      "description": "Browse Rose embroidery thread shades by product and colour family. Add shade numbers to your enquiry list and send them on WhatsApp.",
+      "waPage": "shade card",
+      "h1": "Shade card",
+      "intro": "Tap a shade to add it to your enquiry list. Tap it again to remove it.",
+      "requestCard": "Request a shade card on WhatsApp",
+      "waCard": "Hi, please send me your physical shade card. (via website)",
+      "search": "Search shade number",
+      "searchPlaceholder": "e.g. P12",
+      "product": "Product",
+      "allProducts": "All products",
+      "family": "Colour family",
+      "allFamilies": "All",
+      "count": "{count} shades",
+      "countOne": "1 shade",
+      "placeholderNote": "[TODO: placeholder shades. Replace them with real data in shades.json]",
+      "none": "No shades match. Clear the search or choose another colour family.",
+      "swatch": "Shade {number}",
+      "viewList": "View list"
+    },
+    "becomeDealer": {
+      "title": "Become a Rose dealer",
+      "description": "Apply to become a dealer or distributor for Rose, RS and Jai Plus embroidery thread in your city. Pan-India dispatch.",
+      "waPage": "become a dealer",
+      "h1": "Become a Rose dealer",
+      "intro": "Stock Rose, RS and Jai Plus embroidery thread in your city. Fill in the form and we'll call you.",
+      "whyTitle": "Why partner with us",
+      "why": [
+        {
+          "title": "Three brands",
+          "text": "Rose, RS and Jai Plus, across nylon, polyester, viscose, zari, metallic and bobbin thread."
+        },
+        {
+          "title": "Shade range",
+          "text": "[TODO: number of shades we offer]"
+        },
+        {
+          "title": "Pan-India dispatch",
+          "text": "We send by transport (LR) to any city in India."
+        },
+        {
+          "title": "Dealer support",
+          "text": "[TODO: what support dealers get]"
+        }
+      ],
+      "termsTitle": "Dealer terms",
+      "termsTodo": "[TODO: dealer terms, e.g. minimum order, margins, credit, territory]",
+      "formTitle": "Apply to be a dealer",
+      "name": "Your name",
+      "firm": "Firm name",
+      "city": "City",
+      "state": "State or UT",
+      "chooseState": "Choose",
+      "gstin": "GSTIN (optional)",
+      "whatsapp": "WhatsApp number",
+      "whatsappHint": "10 digits, e.g. 98XXXXXXXX. +91 is fine too.",
+      "volume": "Your current monthly thread volume",
+      "volumeHint": "e.g. 50 boxes, or 200 kg",
+      "products": "Products you're interested in",
+      "brandsNow": "Brands you stock now (optional)",
+      "heard": "How did you hear about us?",
+      "heardOptions": [
+        "IndiaMART",
+        "Google",
+        "Instagram",
+        "Facebook",
+        "YouTube",
+        "LinkedIn",
+        "A dealer",
+        "Trade fair",
+        "Other"
+      ],
+      "submit": "Apply to be a dealer",
+      "success": "Application received. We'll call you within {callback}.",
+      "alsoWa": "Also send on WhatsApp",
+      "waDealer": "Hi, I'd like to become a Rose dealer. (via website)"
+    },
+    "findDealer": {
+      "title": "Find a Rose dealer near you",
+      "description": "Authorised dealers of Rose, RS and Jai Plus embroidery thread, listed by state and city.",
+      "waPage": "find a dealer",
+      "h1": "Find a dealer",
+      "intro": "Authorised Rose dealers by state and city.",
+      "empty": "We're building our dealer network. Become a Rose dealer in your city.",
+      "emptyCta": "Apply to be a dealer",
+      "call": "Call {firm}",
+      "map": "Map"
+    },
+    "genuine": {
+      "title": "Genuine Rose products: how to spot a duplicate",
+      "description": "How to check that your Rose embroidery thread is genuine, and how to report a duplicate.",
+      "waPage": "genuine Rose products",
+      "h1": "Genuine Rose products",
+      "intro": "Duplicate thread can look like ours on the shelf. Check these points before you buy, and tell us if something looks wrong.",
+      "photosTitle": "Our packaging",
+      "photos": [
+        "Photo: Rose box, front",
+        "Photo: Rose label, close-up",
+        "Photo: RS box",
+        "Photo: Jai Plus box"
+      ],
+      "spotTitle": "How to spot a genuine box",
+      "spotTodo": "[TODO: photos and identifying details, e.g. what is printed on our labels and boxes]",
+      "reportTitle": "Found a duplicate?",
+      "reportText": "Send us a photo of the box and label, and tell us where you bought it.",
+      "reportCta": "Report a duplicate",
+      "waReport": "Hi, I want to report a possible duplicate Rose product. (via website)"
+    },
+    "about": {
+      "title": "About Mirchumal Panjumal, makers of Rose embroidery thread",
+      "description": "Mirchumal Panjumal makes Rose, RS and Jai Plus embroidery thread in Rajasthan and supplies businesses across India in bulk.",
+      "waPage": "about",
+      "h1": "About us",
+      "who": "{legalName} makes embroidery thread and sells it in bulk to businesses across India, under the brands Rose, RS and Jai Plus. We are a manufacturer and supplier, not a retail shop.",
+      "facts": [
+        {
+          "label": "In business since",
+          "value": "{established}"
+        },
+        {
+          "label": "Where we are",
+          "value": "{city}, Rajasthan"
+        },
+        {
+          "label": "Dispatch",
+          "value": "Across India by transport (LR)"
+        },
+        {
+          "label": "Samples",
+          "value": "[TODO: sample policy]"
+        }
+      ],
+      "brandsTitle": "Our brands",
+      "brands": {
+        "Rose": "Our main brand.",
+        "RS": "[TODO: one line about RS]",
+        "Jai Plus": "[TODO: one line about Jai Plus]"
+      },
+      "photosTitle": "Our factory",
+      "photos": [
+        "Photo: factory floor",
+        "Photo: twisting machines",
+        "Photo: dyeing",
+        "Photo: packing"
+      ],
+      "processTitle": "How our thread is made",
+      "processTodo": "[TODO: confirm]",
+      "process": [
+        {
+          "title": "White yarn",
+          "text": "We start with raw white yarn."
+        },
+        {
+          "title": "Winding",
+          "text": "The yarn is wound onto smaller packages for the next machines."
+        },
+        {
+          "title": "Twisting",
+          "text": "Strands are twisted together to make the thread strong."
+        },
+        {
+          "title": "Dyeing",
+          "text": "The white thread is dyed to the shade number."
+        },
+        {
+          "title": "Drying",
+          "text": "Dyed thread is dried before it can be wound again."
+        },
+        {
+          "title": "Final winding and packing",
+          "text": "Thread is wound onto cones, spools or tubes and packed."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contact us",
+      "description": "Contact Mirchumal Panjumal, makers of Rose embroidery thread. WhatsApp, phone, email, address and business details.",
+      "waPage": "contact",
+      "h1": "Contact us",
+      "intro": "WhatsApp is the fastest way to reach us. Send the product, shade numbers and quantity, and we'll reply with a rate.",
+      "waCta": "Chat on WhatsApp",
+      "call": "Call",
+      "email": "Email",
+      "hours": "Business hours",
+      "address": "Address",
+      "mapTitle": "Map showing our location",
+      "mapTodo": "[TODO: the map shows once the address is filled in]",
+      "openMaps": "Open in Google Maps"
+    },
+    "downloads": {
+      "title": "Downloads: company profile, catalogue and shade card",
+      "description": "Download the Rose Embroidery Thread company profile, product catalogue and shade card as PDFs.",
+      "waPage": "downloads",
+      "h1": "Downloads",
+      "intro": "Our company profile, product catalogue and shade card as PDFs.",
+      "items": {
+        "company-profile": "Company profile (PDF)",
+        "product-catalogue": "Product catalogue (PDF)",
+        "shade-card": "Shade card (PDF)"
+      },
+      "notReady": "[TODO: file not uploaded yet]",
+      "gst": "Need our GST certificate?",
+      "gstCta": "Ask on WhatsApp",
+      "waGst": "Hi, please send your GST certificate. (via website)"
+    },
+    "notFound": {
+      "title": "Page not available",
+      "description": "This page isn't available yet.",
+      "waPage": "a missing",
+      "h1": "This page isn't available yet.",
+      "text": "We may still be building it, or the link may be wrong. These pages will help:",
+      "home": "Go to home",
+      "products": "See products",
+      "shadeCard": "See shade card",
+      "wa": "Ask us on WhatsApp",
+      "waMessage": "Hi, I couldn't find a page on your website. (via website)"
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "description": "How Mirchumal Panjumal collects, uses and protects the details you share on this website.",
+      "waPage": "privacy policy"
+    },
+    "termsOfUse": {
+      "title": "Terms of use",
+      "description": "The terms for using the Rose Embroidery Thread website and its content.",
+      "waPage": "terms of use"
+    },
+    "termsOfTrade": {
+      "title": "Terms of trade",
+      "description": "Minimum order, payment, dispatch, shade variation and sample terms for buying Rose embroidery thread.",
+      "waPage": "terms of trade"
+    }
+  }
+}

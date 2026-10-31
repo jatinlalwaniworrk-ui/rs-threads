@@ -1,0 +1,26 @@
+---
+// Any button or link that opens WhatsApp. data-wa names the button for analytics.
+import Icon from './Icon.astro';
+import { whatsappHref } from '../lib/whatsapp';
+
+interface Props {
+  message: string;
+  id: string;
+  class?: string;
+  icon?: boolean;
+}
+
+const { message, id, class: className = 'btn btn--primary', icon = true } = Astro.props;
+const href = whatsappHref(message);
+const external = href.startsWith('https://');
+---
+<a
+  href={href}
+  class={className}
+  data-wa={id}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}
+>
+  {icon && <Icon name="whatsapp" />}
+  <slot />
+</a>

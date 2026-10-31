@@ -1,0 +1,18 @@
+---
+// EN | हिंदी. Hindi pages don't exist yet, so हिंदी goes to the 404 page until hi.json is added.
+import { hasLang, localePath, type Lang, type Strings } from '../i18n';
+
+interface Props {
+  t: Strings;
+  lang: Lang;
+  path: string;
+}
+
+const { t, lang, path } = Astro.props;
+const hiHref = hasLang('hi') ? localePath('hi', path) : '/404';
+---
+<div class="lang" role="group" aria-label={t.nav.language}>
+  <a href={localePath('en', path)} lang="en" hreflang="en" aria-current={lang === 'en' ? 'true' : undefined}>EN</a>
+  <span aria-hidden="true">|</span>
+  <a href={hiHref} lang="hi" hreflang="hi" aria-current={lang === 'hi' ? 'true' : undefined}>हिंदी</a>
+</div>

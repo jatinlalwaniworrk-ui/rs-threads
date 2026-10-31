@@ -1,0 +1,51 @@
+---
+// Full business details block for About and Contact. Buyers use it to check we're a real business.
+import Text from './Text.astro';
+import { site, fullAddress, gstPortalUrl, linkOr404, withMark, telHref, mailHref } from '../lib/site';
+import { isSet } from '../lib/todo';
+import type { Strings } from '../i18n';
+
+interface Props {
+  t: Strings;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { t, headingLevel = 'h2' } = Astro.props;
+const b = t.business;
+const Heading = headingLevel;
+const brands = site.brands.map((x) => withMark(x.name)).join(', ');
+// Udyam can be removed by setting it to "" in site.json. The IndiaMART badge shows only once set.
+const showUdyam = site.udyam.trim() !== '';
+const showBadge = site.indiamartBadge.trim() !== '';
+---
+<section aria-labelledby="business-details">
+  <Heading id="business-details">{b.title}</Heading>
+  <dl class="details">
+    <div><dt>{b.legalName}</dt><dd>{site.legalName}</dd></div>
+    <div><dt>{b.businessType}</dt><dd><Text t={site.businessType} /></dd></div>
+    <div>
+      <dt>{b.brands}</dt>
+      <dd>{brands}{site.brands.some((x) => !isSet(x.trademark)) && <> <Text t="[TODO: trademark status per brand]" /></>}</dd>
+    </div>
+    <div>
+      <dt>{b.gstin}</dt>
+      <dd>
+        <Text t={site.gstin} />
+        {' '}<a href={gstPortalUrl} target="_blank" rel="noopener" class="small">{b.verifyGstin}</a>
+      </dd>
+    </div>
+    {showUdyam && <div><dt>{b.udyam}</dt><dd><Text t={site.udyam} /></dd></div>}
+    <div><dt>{b.established}</dt><dd><Text t={site.established} /></dd></div>
+    <div><dt>{b.address}</dt><dd><Text t={fullAddress} /></dd></div>
+    <div><dt>{b.phone}</dt><dd>{isSet(site.phone) ? <a href={telHref}>{site.phone}</a> : <Text t={site.phone} />}</dd></div>
+    <div><dt>{b.email}</dt><dd><a href={mailHref}>{site.email}</a></dd></div>
+    <div><dt>{b.hours}</dt><dd><Text t={site.hours} /></dd></div>
+    {showBadge && (
+      <div>
+        <dt>{b.indiamartBadge}</dt>
+        <dd>{isSet(site.indiamartBadge) ? <a href={linkOr404(site.links.indiamart)} target="_blank" rel="noopener">{site.indiamartBadge}</a> : <Text t={site.indiamartBadge} />}</dd>
+      </div>
+    )}
+  </dl>
+  <p class="small muted" style="margin-top: 12px">{b.trademarkNote}</p>
+</section>

@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro';
+import LangSwitch from './LangSwitch.astro';
+import WhatsAppLink from './WhatsAppLink.astro';
+import { localePath, type Lang, type Strings } from '../i18n';
+
+interface Props {
+  t: Strings;
+  lang: Lang;
+  path: string;
+  waMessage: string;
+}
+
+const { t, lang, path, waMessage } = Astro.props;
+const lp = (p: string) => localePath(lang, p);
+
+const nav = [
+  ['/products', t.nav.products],
+  ['/shade-card', t.nav.shadeCard],
+  ['/become-a-dealer', t.nav.becomeDealer],
+  ['/about', t.nav.about],
+  ['/contact', t.nav.contact],
+] as const;
+const current = (href: string) => (path === href || path.startsWith(`${href}/`) ? 'page' : undefined);
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href={lp('/')} class="site-header__logo" aria-label={t.header.logoAlt}>
+      <img class="logo-mark" src="/logo-mark.webp" width="44" height="44" alt="" />
+      <img class="logo-lockup" src="/logo-horizontal.webp" width="107" height="44" alt="" />
+    </a>
+
+    <nav class="site-nav" aria-label={t.nav.mainNav}>
+      {nav.map(([href, label]) => <a href={lp(href)} aria-current={current(href)}>{label}</a>)}
+    </nav>
+
+    <LangSwitch t={t} lang={lang} path={path} />
+
+    <button type="button" class="icon-btn" data-open-enquiry aria-haspopup="dialog" aria-label={t.header.enquiryList} data-label={t.header.enquiryList}>
+      <Icon name="list" />
+      <span class="count-badge" data-enquiry-count hidden>0</span>
+    </button>
+
+    <WhatsAppLink id="header" message={waMessage} class="btn btn--primary btn--sm header-cta">
+      <span class="long">{t.header.cta}</span><span class="short">{t.header.ctaShort}</span>
+    </WhatsAppLink>
+
+    <button type="button" class="icon-btn menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label={t.nav.menu} data-label-open={t.nav.menu} data-label-close={t.nav.closeMenu}>
+      <Icon name="menu" class="when-closed" />
+      <Icon name="close" class="when-open" />
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <LangSwitch t={t} lang={lang} path={path} />
+    <nav aria-label={t.nav.mainNav}>
+      {nav.map(([href, label]) => <a href={lp(href)} aria-current={current(href)}>{label}</a>)}
+      <a href={lp('/find-a-dealer')} aria-current={current('/find-a-dealer')}>{t.nav.findDealer}</a>
+      <a href={lp('/downloads')} aria-current={current('/downloads')}>{t.nav.downloads}</a>
+    </nav>
+    <WhatsAppLink id="menu" message={waMessage} class="btn btn--primary btn--block">{t.header.cta}</WhatsAppLink>
+  </div>
+</header>

@@ -1,0 +1,14 @@
+---
+// Renders copy with {tokens} filled from site.json and every [TODO ...] highlighted in yellow.
+import { siteVars } from '../lib/site';
+import { fill, highlightTodos } from '../lib/todo';
+
+interface Props {
+  t: string;
+  vars?: Record<string, string | number>;
+}
+
+const { t, vars = {} } = Astro.props;
+const html = highlightTodos(fill(t, { ...siteVars, ...vars }));
+---
+<Fragment set:html={html} />

@@ -1,0 +1,15 @@
+---
+// A plain labelled block standing in for a real photo. Never replace with stock photos.
+import Icon from './Icon.astro';
+
+interface Props {
+  label: string;
+  shape?: 'default' | 'wide' | 'square';
+}
+
+const { label, shape = 'default' } = Astro.props;
+---
+<div class:list={['photo-ph', shape !== 'default' && `photo-ph--${shape}`]} role="img" aria-label={label} data-photo-needed={label}>
+  <Icon name="camera" />
+  <span aria-hidden="true">{label}</span>
+</div>

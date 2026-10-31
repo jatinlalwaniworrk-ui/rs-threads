@@ -1,0 +1,49 @@
+---
+// One row of links to every platform we're on. Links still marked TODO go to the 404 page.
+import Icon from './Icon.astro';
+import { site, linkOr404 } from '../lib/site';
+import { whatsappHref } from '../lib/whatsapp';
+import { fill } from '../lib/todo';
+import type { Strings } from '../i18n';
+
+interface Props {
+  t: Strings;
+  light?: boolean;
+}
+
+const { t, light = false } = Astro.props;
+const p = t.platforms;
+
+// brand: true when Simple Icons has the logo; otherwise a neutral icon plus the name as text.
+const platforms = [
+  { key: 'whatsapp', href: whatsappHref(t.wa.rates), icon: 'whatsapp', brand: true },
+  { key: 'indiamart', href: linkOr404(site.links.indiamart), icon: 'store', brand: false },
+  { key: 'tradeindia', href: linkOr404(site.links.tradeindia), icon: 'store', brand: false },
+  { key: 'justdial', href: linkOr404(site.links.justdial), icon: 'store', brand: false },
+  { key: 'googleBusiness', href: linkOr404(site.links.googleBusiness), icon: 'pin', brand: false },
+  { key: 'instagram', href: linkOr404(site.links.instagram), icon: 'instagram', brand: true },
+  { key: 'facebook', href: linkOr404(site.links.facebook), icon: 'facebook', brand: true },
+  { key: 'youtube', href: linkOr404(site.links.youtube), icon: 'youtube', brand: true },
+  { key: 'linkedin', href: linkOr404(site.links.linkedin), icon: 'link', brand: false },
+] as const;
+---
+<ul class:list={['platforms', light && 'platforms--light']}>
+  {platforms.map(({ key, href, icon, brand }) => {
+    const name = p[key];
+    const external = href.startsWith('https://');
+    return (
+      <li>
+        <a
+          href={href}
+          aria-label={fill(p.label, { platform: name })}
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener' : undefined}
+          data-wa={key === 'whatsapp' ? 'platform-row' : undefined}
+        >
+          <Icon name={icon} />
+          {!brand && <span aria-hidden="true">{name}</span>}
+        </a>
+      </li>
+    );
+  })}
+</ul>

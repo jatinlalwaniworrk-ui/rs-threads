@@ -1,0 +1,107 @@
+---
+// The enquiry list panel. The form is a Netlify form, so it must be in the built HTML for Netlify to detect it.
+// Behaviour lives in src/scripts/enquiry-panel.ts.
+import Icon from './Icon.astro';
+import LeadFormExtras from './LeadFormExtras.astro';
+import { localePath, type Lang, type Strings } from '../i18n';
+
+interface Props {
+  t: Strings;
+  lang: Lang;
+}
+
+const { t, lang } = Astro.props;
+const c = t.client;
+---
+<dialog id="enquiry-panel" class="panel" aria-labelledby="enquiry-title">
+  <div class="panel__head">
+    <h2 id="enquiry-title">{c.panelTitle}</h2>
+    <button type="button" class="icon-btn" data-close-enquiry aria-label={c.close}><Icon name="close" /></button>
+  </div>
+
+  <div class="panel__body">
+    <div data-enquiry-empty>
+      <p>{c.empty}</p>
+      <div class="btn-row">
+        <a class="btn btn--secondary" href={localePath(lang, '/products')}>{c.browse}</a>
+        <a class="btn btn--secondary" href={localePath(lang, '/shade-card')}>{c.openShadeCard}</a>
+      </div>
+    </div>
+
+    <ul class="items" data-enquiry-items></ul>
+
+    <form
+      name="enquiry"
+      method="POST"
+      action="/"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      class="form"
+      data-enquiry-form
+      novalidate
+    >
+      <input type="hidden" name="form-name" value="enquiry" />
+      <input type="hidden" name="items" value="" />
+      <input type="hidden" name="message" value="" />
+      <h3>{c.detailsTitle}</h3>
+      <div class="field">
+        <label for="enq-name">{c.name}</label>
+        <input type="text" id="enq-name" name="name" autocomplete="name" required aria-describedby="enq-name-error" />
+        <p class="field-error" id="enq-name-error" data-error-for="name"></p>
+      </div>
+      <div class="field">
+        <label for="enq-firm">{c.firm}</label>
+        <input type="text" id="enq-firm" name="firm" autocomplete="organization" />
+      </div>
+      <div class="field">
+        <label for="enq-city">{c.city}</label>
+        <input type="text" id="enq-city" name="city" autocomplete="address-level2" required aria-describedby="enq-city-error" />
+        <p class="field-error" id="enq-city-error" data-error-for="city"></p>
+      </div>
+      <LeadFormExtras t={t} lang={lang} id="enq" />
+      <p class="field-error" data-error-for="items" role="alert"></p>
+      <button type="submit" class="btn btn--primary btn--block"><Icon name="whatsapp" />{c.send}</button>
+    </form>
+
+    <div data-enquiry-sent hidden tabindex="-1">
+      <h3>{c.sentTitle}</h3>
+      <p>{c.sentText}</p>
+      <div class="btn-row">
+        <button type="button" class="btn btn--primary" data-clear-enquiry>{c.clear}</button>
+        <button type="button" class="btn btn--secondary" data-keep-enquiry>{c.keep}</button>
+      </div>
+    </div>
+  </div>
+
+  <template id="enquiry-item">
+    <li class="item">
+      <span class="item__dot" aria-hidden="true"></span>
+      <div class="item__main">
+        <div>
+          <div class="item__name" data-name></div>
+          <div class="item__shade" data-shade-label></div>
+        </div>
+        <div class="field" data-product-field>
+          <label data-for="product">{c.product}</label>
+          <select data-product data-id="product"><option value="">{c.chooseProduct}</option></select>
+        </div>
+        <div class="field" data-shade-field>
+          <label data-for="shade">{c.shadeNo}</label>
+          <input type="text" data-shade data-id="shade" autocomplete="off" />
+          <a class="small" data-pick-shade href={localePath(lang, '/shade-card')}>{c.pickShade}</a>
+        </div>
+        <div class="item__row">
+          <div>
+            <div class="qty" role="group" aria-label={c.quantity}>
+              <button type="button" data-dec aria-label={c.decrease}><Icon name="minus" /></button>
+              <input type="number" min="1" max="9999" inputmode="numeric" data-qty aria-label={c.quantity} />
+              <button type="button" data-inc aria-label={c.increase}><Icon name="plus" /></button>
+            </div>
+            <span class="qty__unit" data-unit></span>
+          </div>
+          <button type="button" class="link-btn" data-remove>{c.removeShort}</button>
+        </div>
+      </div>
+    </li>
+  </template>
+</dialog>

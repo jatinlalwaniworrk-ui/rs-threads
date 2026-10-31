@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import Text from '../components/Text.astro';
+import WhatsAppLink from '../components/WhatsAppLink.astro';
+import testimonials from '../data/testimonials.json';
+import { products, shades } from '../lib/site';
+import { localePath, useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+type Testimonial = { quote: string; name: string; firm?: string; city?: string; permission?: boolean };
+
+const { lang } = Astro.props;
+const t = useStrings(lang);
+const h = t.pages.home;
+const lp = (p: string) => localePath(lang, p);
+
+const groups = (['embroidery-nylon', 'embroidery-thread'] as const).map((key) => ({
+  key,
+  label: t.groups[key],
+  names: products.filter((p) => p.group === key).map((p) => p.name),
+}));
+const hasPlaceholderShades = shades.some((s) => s.placeholder);
+// Only testimonials with the customer's written permission are shown.
+const approved = (testimonials as Testimonial[]).filter((x) => x.permission === true);
+---
+<Base lang={lang} title={h.title} description={h.description} waPage={h.waPage} isHome>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__media">
+        <PhotoPlaceholder label={h.heroPhoto} />
+        <div class="shade-strip" aria-hidden="true">
+          {shades.map((s) => <span style={`background:${s.hex}`} />)}
+        </div>
+        {hasPlaceholderShades && <p class="strip-note"><Text t={h.stripTodo} /></p>}
+      </div>
+      <div>
+        <h1>{h.h1}</h1>
+        <p class="lead">{h.lead}</p>
+        <div class="btn-row">
+          <WhatsAppLink id="hero" message={t.wa.rates}>{h.ctaPrimary}</WhatsAppLink>
+          <a class="btn btn--secondary" href={lp('/shade-card')}>{h.ctaSecondary}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="home-products">
+    <div class="container split">
+      <div>
+        <h2 id="home-products">{h.productsTitle}</h2>
+        <a class="text-link" href={lp('/products')}>{h.productsAll}<Icon name="arrow" /></a>
+      </div>
+      <ul class="rows">
+        {groups.map((g) => (
+          <li>
+            <a class="row-link" href={lp(`/products?group=${g.key}`)}>
+              <span>
+                <span class="row-link__title">{g.label}</span>
+                <span class="row-link__meta">{g.names.join(' · ')}</span>
+              </span>
+              <Icon name="arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--mist" aria-labelledby="home-order">
+    <div class="container">
+      <h2 id="home-order">{h.orderTitle}</h2>
+      <ol class="steps">
+        {h.orderSteps.map((step) => (
+          <li>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="home-for">
+    <div class="container">
+      <h2 id="home-for">{h.forTitle}</h2>
+      <ul class="audience">
+        {h.forItems.map((item) => (
+          <li>
+            <h3>{item.title}</h3>
+            <p><Text t={item.text} /></p>
+            {'link' in item && item.link && <p><a class="text-link" href={lp(item.link)}>{item.linkText}<Icon name="arrow" /></a></p>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--ink section--tight" aria-labelledby="home-dealer">
+    <div class="container band">
+      <div>
+        <h2 id="home-dealer">{h.dealerTitle}</h2>
+        <p>{h.dealerText}</p>
+      </div>
+      <a class="btn btn--secondary" href={lp('/become-a-dealer')}>{h.dealerCta}</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="home-testimonials">
+    <div class="container">
+      <h2 id="home-testimonials">{h.testimonialsTitle}</h2>
+      {approved.length ? (
+        <ul class="audience">
+          {approved.map((x) => (
+            <li>
+              <blockquote><p>{x.quote}</p></blockquote>
+              <p class="small muted">{[x.name, x.firm, x.city].filter(Boolean).join(', ')}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p><Text t={h.testimonialsTodo} /></p>
+      )}
+    </div>
+  </section>
+</Base>

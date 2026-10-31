@@ -1,0 +1,61 @@
+---
+import PaymentNotice from './PaymentNotice.astro';
+import PlatformLinks from './PlatformLinks.astro';
+import Text from './Text.astro';
+import { site, fullAddress, telHref, mailHref } from '../lib/site';
+import { isSet } from '../lib/todo';
+import { localePath, type Lang, type Strings } from '../i18n';
+
+interface Props {
+  t: Strings;
+  lang: Lang;
+}
+
+const { t, lang } = Astro.props;
+const lp = (p: string) => localePath(lang, p);
+const b = t.business;
+
+const links = [
+  ['/privacy', t.nav.privacy],
+  ['/terms-of-use', t.nav.termsOfUse],
+  ['/terms-of-trade', t.nav.termsOfTrade],
+  ['/downloads', t.nav.downloads],
+  ['/genuine', t.nav.genuine],
+  ['/find-a-dealer', t.nav.findDealer],
+] as const;
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <section aria-labelledby="footer-business">
+        <h2 id="footer-business">{t.footer.business}</h2>
+        <ul class="footer-details">
+          <li><strong>{site.legalName}</strong></li>
+          <li>{b.gstin}: <Text t={site.gstin} /></li>
+          <li><Text t={fullAddress} /></li>
+          <li>{b.phone}: {isSet(site.phone) ? <a href={telHref}>{site.phone}</a> : <Text t={site.phone} />}</li>
+          <li>{b.email}: <a href={mailHref}>{site.email}</a></li>
+          <li>{b.hours}: <Text t={site.hours} /></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="footer-links">
+        <h2 id="footer-links">{t.footer.links}</h2>
+        <ul class="footer-links">
+          {links.map(([href, label]) => <li><a href={lp(href)}>{label}</a></li>)}
+          <li><button type="button" data-cookie-settings>{t.footer.cookieSettings}</button></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="footer-find">
+        <h2 id="footer-find">{t.footer.findUs}</h2>
+        <PlatformLinks t={t} />
+      </section>
+    </div>
+
+    <div class="footer-bottom">
+      <PaymentNotice t={t} />
+      <p><Text t={t.footer.copyright} /></p>
+    </div>
+  </div>
+</footer>

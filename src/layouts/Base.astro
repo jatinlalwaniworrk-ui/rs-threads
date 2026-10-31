@@ -1,0 +1,139 @@
+---
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '../styles/global.css';
+import poppins400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
+import poppins600 from '@fontsource/poppins/files/poppins-latin-600-normal.woff2?url';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import EnquiryPanel from '../components/EnquiryPanel.astro';
+import Icon from '../components/Icon.astro';
+import { site, siteName } from '../lib/site';
+import { whatsappHref } from '../lib/whatsapp';
+import { clean, fill, isSet } from '../lib/todo';
+import { stripLang, useStrings, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+  title: string;
+  description: string;
+  /** Page name for the default WhatsApp message, e.g. "shade card". */
+  waPage?: string;
+  /** Full WhatsApp message, when the page needs a specific one. */
+  waMessage?: string;
+  jsonLd?: object[];
+  noindex?: boolean;
+  isHome?: boolean;
+}
+
+const { lang = 'en', title, description, waPage, waMessage, jsonLd = [], noindex = false, isHome = false } = Astro.props;
+const t = useStrings(lang);
+
+const pathname = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const path = stripLang(pathname);
+const canonical = new URL(pathname, Astro.site).href;
+const ogImage = new URL('/og-image.jpg', Astro.site).href;
+const fullTitle = clean(isHome ? `${siteName}: ${title}` : `${title} | ${siteName}`);
+const metaDescription = clean(description);
+const message = waMessage ?? fill(t.wa.default, { page: waPage ?? clean(title) });
+const floatHref = whatsappHref(message);
+
+// Organization markup on every page. Only filled-in values are used.
+const sameAs = Object.entries(site.links)
+  .filter(([key, url]) => key !== 'googleReviews' && isSet(url))
+  .map(([, url]) => url);
+const address: Record<string, string> = { '@type': 'PostalAddress', addressRegion: site.address.state, addressCountry: 'IN' };
+if (isSet(site.address.street)) address.streetAddress = site.address.street;
+if (isSet(site.address.city)) address.addressLocality = site.address.city;
+if (isSet(site.address.pin)) address.postalCode = site.address.pin;
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteName,
+  legalName: site.legalName,
+  url: new URL('/', Astro.site).href,
+  logo: new URL('/logo.png', Astro.site).href,
+  email: site.email,
+  ...(isSet(site.phone) && { telephone: site.phone }),
+  ...(isSet(site.gstin) && { taxID: site.gstin }),
+  ...(isSet(site.established) && { foundingDate: site.established }),
+  address,
+  brand: site.brands.map((b) => ({ '@type': 'Brand', name: b.name })),
+  ...(sameAs.length && { sameAs }),
+};
+const ld = (data: object) => JSON.stringify(data).replace(/</g, '\\u003c');
+const clientStrings = JSON.stringify(t.client).replace(/</g, '\\u003c');
+---
+<!doctype html>
+<html lang={lang === 'hi' ? 'hi-IN' : 'en-IN'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang === 'hi' ? 'hi-IN' : 'en-IN'} href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="preload" href={poppins400} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={poppins600} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={siteName} />
+    <meta property="og:locale" content={t.locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {isSet(site.analytics.searchConsole) && <meta name="google-site-verification" content={site.analytics.searchConsole} />}
+    <script type="application/ld+json" set:html={ld(organization)} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={ld(data)} />)}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.nav.skip}</a>
+    <Header t={t} lang={lang} path={path} waMessage={message} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer t={t} lang={lang} />
+
+    <div class="bottom-stack">
+      <a
+        href={floatHref}
+        class="wa-float"
+        aria-label={t.wa.float}
+        data-wa="floating"
+        target={floatHref.startsWith('https://') ? '_blank' : undefined}
+        rel={floatHref.startsWith('https://') ? 'noopener' : undefined}
+      >
+        <Icon name="whatsapp" />
+      </a>
+      <slot name="bottom" />
+      <div class="bottom-bar" id="cookie-bar" role="region" aria-label={t.cookies.label} hidden>
+        <div class="bottom-bar__inner">
+          <p>{t.cookies.text} <a href={lang === 'en' ? '/privacy' : `/${lang}/privacy`}>{t.cookies.privacy}</a></p>
+          <div class="btn-row">
+            <button type="button" class="btn btn--light" data-cookie="declined">{t.cookies.decline}</button>
+            <button type="button" class="btn btn--light" data-cookie="accepted">{t.cookies.accept}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <EnquiryPanel t={t} lang={lang} />
+    <div id="live-region" class="visually-hidden" aria-live="polite"></div>
+    <script type="application/json" id="client-strings" set:html={clientStrings} />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

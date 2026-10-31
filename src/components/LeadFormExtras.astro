@@ -1,0 +1,35 @@
+---
+// Consent checkbox, hidden tracking fields and the spam honeypot. Every lead form includes this.
+// Field values are filled in by src/lib/leads.ts when the form is sent.
+import Text from './Text.astro';
+import { UTM_FIELDS } from '../lib/utm';
+import { siteVars } from '../lib/site';
+import { fill } from '../lib/todo';
+import { localePath, type Lang, type Strings } from '../i18n';
+
+interface Props {
+  t: Strings;
+  lang: Lang;
+  id: string;
+}
+
+const { t, lang, id } = Astro.props;
+---
+<div class="field">
+  <label class="check consent" for={`${id}-consent`}>
+    <input type="checkbox" id={`${id}-consent`} name="consent" value="yes" required aria-describedby={`${id}-consent-error`} />
+    <span>
+      <Text t={t.consent.label} />
+      {' '}<a href={localePath(lang, '/privacy')} target="_blank">{t.consent.privacy}</a>
+    </span>
+  </label>
+  <p class="field-error" id={`${id}-consent-error`} data-error-for="consent" role="alert"></p>
+</div>
+<input type="hidden" name="consent_text" value={fill(t.consent.label, siteVars)} />
+<input type="hidden" name="consent_at" value="" />
+<input type="hidden" name="page_url" value="" />
+{UTM_FIELDS.map((f) => <input type="hidden" name={f} value="" />)}
+<div class="honeypot" aria-hidden="true">
+  <label for={`${id}-bot`}>{t.honeypot}</label>
+  <input type="text" id={`${id}-bot`} name="bot-field" tabindex="-1" autocomplete="off" />
+</div>
