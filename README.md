@@ -140,7 +140,7 @@ Never use stock photos of thread.
 
 Each form submission goes to two places (see `src/lib/leads.ts`):
 
-1. **Netlify Forms.** In Netlify: Forms. Turn on email notifications for the `enquiry` and `dealer` forms (Forms, Form notifications, Add notification, Email).
+1. **Netlify Forms.** In Netlify: Forms. If it asks, click "Enable form detection", then redeploy once. Turn on email notifications for the `enquiry` and `dealer` forms (Forms, Form notifications, Add notification, Email).
 2. **Google Sheet.** Follow the steps at the top of `scripts/google-apps-script.gs`, then put the web app URL in `leads.appsScriptUrl` in `site.json`.
 
 To add a CRM later (Zoho, Interakt, AiSensy or similar), add one more sender in `src/lib/leads.ts`. Nothing else needs to change.
