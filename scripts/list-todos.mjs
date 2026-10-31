@@ -8,6 +8,8 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
 const read = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
+const site = read('src/data/site.json');
+const isTodo = (v) => typeof v === 'string' && v.includes('[TODO');
 
 const decode = (s) =>
   s.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
@@ -83,7 +85,7 @@ line('Most values live in `src/data/site.json` (see README.md). Fix them, then r
 line();
 line('## Before launch');
 line();
-line('- **WhatsApp number** (`whatsapp` in site.json). Until it is set, every WhatsApp button and the enquiry list go to the 404 page.');
+if (isTodo(site.whatsapp)) line('- **WhatsApp number** (`whatsapp` in site.json). Until it is set, every WhatsApp button and the enquiry list go to the 404 page.');
 line('- **GSTIN, address, phone and business hours.** Shown in the footer of every page and checked by buyers before they call.');
 line('- **Domain** (`domain` in site.json). Until it is set, share links use the temporary address and search engines are asked not to list the site.');
 line('- **Lead alerts.** The site is on GitHub Pages, so form leads are only saved once the Google Sheet below is set up. For an email per lead, move to Netlify (see README.md).');
@@ -119,12 +121,10 @@ for (const p of pages) {
 line();
 
 // Placeholders in the data files.
-const site = read('src/data/site.json');
 const flat = (obj, prefix = '') =>
   Object.entries(obj).flatMap(([k, v]) =>
     typeof v === 'object' && v !== null ? flat(v, `${prefix}${k}.`) : [[`${prefix}${k}`, v]],
   );
-const isTodo = (v) => typeof v === 'string' && v.includes('[TODO');
 const products = read('src/data/products.json');
 const shades = read('src/data/shades.json');
 const placeholderShades = shades.filter((s) => s.placeholder).length;

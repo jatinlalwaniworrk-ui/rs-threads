@@ -5,7 +5,6 @@ Most values live in `src/data/site.json` (see README.md). Fix them, then run `np
 
 ## Before launch
 
-- **WhatsApp number** (`whatsapp` in site.json). Until it is set, every WhatsApp button and the enquiry list go to the 404 page.
 - **GSTIN, address, phone and business hours.** Shown in the footer of every page and checked by buyers before they call.
 - **Domain** (`domain` in site.json). Until it is set, share links use the temporary address and search engines are asked not to list the site.
 - **Lead alerts.** The site is on GitHub Pages, so form leads are only saved once the Google Sheet below is set up. For an email per lead, move to Netlify (see README.md).
@@ -180,7 +179,6 @@ Put compressed WebP photos in `public/images/` and replace the placeholder block
 - `address.pin`: [TODO: PIN]
 - `address.mapsUrl`: [TODO: Google Maps link]
 - `jurisdictionCity`: [TODO: city]
-- `whatsapp`: [TODO: 91XXXXXXXXXX]
 - `phone`: [TODO]
 - `hours`: [TODO: e.g. Mon to Sat, 10 AM to 7 PM]
 - `domain`: [TODO]
